@@ -1,0 +1,1044 @@
+<!-- HTML header for doxygen 1.9.4-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BAKIN: Yukar.Common.Resource.SoundResource クラス</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="custom_stylesheet.css" rel="stylesheet" type="text/css" />
+  <style>
+    .myheader {
+      table-layout: fixed;
+    }
+  </style>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table class="myheader" cellspacing="0" cellpadding="0" bgcolor="#fbefdf">
+ <tbody>
+ <tr height="5">
+   <td/><td/>
+ </tr>
+ <tr id="projectrow" bgcolor="#fbefdf">
+  <td width="597" height="76"><img align="left" alt="Logo" src="PluginReferenceLogo.png"/></td>
+  <td width="9999"></td>
+ </tr>
+ <tr height="5">
+   <td/><td/>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'検索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_yukar.html">Yukar</a></li><li class="navelem"><a class="el" href="namespace_yukar_1_1_common.html">Common</a></li><li class="navelem"><a class="el" href="namespace_yukar_1_1_common_1_1_resource.html">Resource</a></li><li class="navelem"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">公開型</a> &#124;
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
+<a href="#pub-attribs">公開変数類</a> &#124;
+<a href="#pub-static-attribs">静的公開変数類</a> &#124;
+<a href="#pro-methods">限定公開メンバ関数</a> &#124;
+<a href="#properties">プロパティ</a> &#124;
+<a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle"><div class="title">Yukar.Common.Resource.SoundResource クラス</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>サウンドリソースを管理するクラス  
+ <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#details">[詳解]</a></p>
+<div class="dynheader">
+Yukar.Common.Resource.SoundResource の継承関係図</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.png" usemap="#Yukar.Common.Resource.SoundResource_map" alt=""/>
+  <map id="Yukar.Common.Resource.SoundResource_map" name="Yukar.Common.Resource.SoundResource_map">
+<area href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html" title="リソースを管理する親クラス" alt="Yukar.Common.Resource.ResourceItem" shape="rect" coords="260,112,510,136"/>
+<area href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html" title="保存データ基底クラス" alt="Yukar.Common.Rom.RomItem" shape="rect" coords="260,56,510,80"/>
+<area href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html" title="データチャンクI/F" alt="Yukar.Common.Rom.IChunk" shape="rect" coords="130,0,380,24"/>
+<area href="class_yukar_1_1_common_1_1_resource_1_1_bgm.html" title="BGMリソースを管理するクラス（SoundResourceクラスに統合したため未使用）" alt="Yukar.Common.Resource.Bgm" shape="rect" coords="0,224,250,248"/>
+<area href="class_yukar_1_1_common_1_1_resource_1_1_bgs.html" title="環境音リソースを管理するクラス（SoundResourceクラスに統合したため未使用）" alt="Yukar.Common.Resource.Bgs" shape="rect" coords="260,224,510,248"/>
+<area href="class_yukar_1_1_common_1_1_resource_1_1_se.html" title="SEリソースを管理するクラス（SoundResourceクラスに統合したため未使用）" alt="Yukar.Common.Resource.Se" shape="rect" coords="520,224,770,248"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+公開型</h2></td></tr>
+<tr class="memitem:aff43603c9289a7852843f27aad87085a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085a">UsageType</a> { <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085aa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = -1
+, <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085aa7cabb490f03302bbd6f4055c16c80f13">BGM</a> = 0
+, <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085aa3b7f57d0beb30d8eb58ce2e1a24cb7d4">BGS</a>
+, <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085aaf003c44deab679aa2edfaff864c77402">SE</a>
+ }</td></tr>
+<tr class="memdesc:aff43603c9289a7852843f27aad87085a"><td class="mdescLeft">&#160;</td><td class="mdescRight">サウンドの使用用途を定義する列挙型  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085a">[詳解]</a><br /></td></tr>
+<tr class="separator:aff43603c9289a7852843f27aad87085a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承公開型</td></tr>
+<tr class="memitem:a149f9aa0d5cc6e3ac0cfdc1f5c522f9c inherit pub_types_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9c">ThumbnailStatusType</a> { <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9cace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a> = 0
+, <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9caa6fff580feaafda7ffe5c5d61e0ab6a7">Creating</a>
+, <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9ca0eceeb45861f9585dd7a97a3e36f85c6">Created</a>
+, <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9cad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a>
+ }</td></tr>
+<tr class="memdesc:a149f9aa0d5cc6e3ac0cfdc1f5c522f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">サムネイル画像生成状況  <a href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9c">[詳解]</a><br /></td></tr>
+<tr class="separator:a149f9aa0d5cc6e3ac0cfdc1f5c522f9c inherit pub_types_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:af4a2c88a4bb21b2115e0f3f61ef809cc"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#af4a2c88a4bb21b2115e0f3f61ef809cc">setPath</a> (string <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a271de300f85d6af13471ed0d0014856b">path</a>)</td></tr>
+<tr class="memdesc:af4a2c88a4bb21b2115e0f3f61ef809cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">パスの設定  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#af4a2c88a4bb21b2115e0f3f61ef809cc">[詳解]</a><br /></td></tr>
+<tr class="separator:af4a2c88a4bb21b2115e0f3f61ef809cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0335993142b57e95da6150827e35db28"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a0335993142b57e95da6150827e35db28">save</a> (System.IO.BinaryWriter writer)</td></tr>
+<tr class="memdesc:a0335993142b57e95da6150827e35db28"><td class="mdescLeft">&#160;</td><td class="mdescRight">セーブ  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a0335993142b57e95da6150827e35db28">[詳解]</a><br /></td></tr>
+<tr class="separator:a0335993142b57e95da6150827e35db28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a853cd4b20712eb3f335fe00770136128"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a853cd4b20712eb3f335fe00770136128">load</a> (System.IO.BinaryReader reader)</td></tr>
+<tr class="memdesc:a853cd4b20712eb3f335fe00770136128"><td class="mdescLeft">&#160;</td><td class="mdescRight">ロード  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a853cd4b20712eb3f335fe00770136128">[詳解]</a><br /></td></tr>
+<tr class="separator:a853cd4b20712eb3f335fe00770136128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32752607ee0229eada86e7aa5c7e049"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ab32752607ee0229eada86e7aa5c7e049">ChangeReImportPath</a> ()</td></tr>
+<tr class="memdesc:ab32752607ee0229eada86e7aa5c7e049"><td class="mdescLeft">&#160;</td><td class="mdescRight">インポートパスの変更  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ab32752607ee0229eada86e7aa5c7e049">[詳解]</a><br /></td></tr>
+<tr class="separator:ab32752607ee0229eada86e7aa5c7e049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa022fb56a8b5a56511d6ce196e420081"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aa022fb56a8b5a56511d6ce196e420081">reImport</a> ()</td></tr>
+<tr class="memdesc:aa022fb56a8b5a56511d6ce196e420081"><td class="mdescLeft">&#160;</td><td class="mdescRight">再インポート  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aa022fb56a8b5a56511d6ce196e420081">[詳解]</a><br /></td></tr>
+<tr class="separator:aa022fb56a8b5a56511d6ce196e420081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html">Yukar.Common.Resource.ResourceItem</a> に属する継承公開メンバ関数</td></tr>
+<tr class="memitem:afec425c3108ef417af2de4202bb69ddf inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#afec425c3108ef417af2de4202bb69ddf">initializingAfterLoading</a> ()</td></tr>
+<tr class="separator:afec425c3108ef417af2de4202bb69ddf inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e0f15af00f7b62842d4b1a653d742c inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ab2e0f15af00f7b62842d4b1a653d742c">initializeKmyGfx</a> ()</td></tr>
+<tr class="separator:ab2e0f15af00f7b62842d4b1a653d742c inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33a3e2a348e8e20226ce72a59c75362 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ad33a3e2a348e8e20226ce72a59c75362">save</a> (System.IO.BinaryWriter writer)</td></tr>
+<tr class="separator:ad33a3e2a348e8e20226ce72a59c75362 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a70a3f31920f2d877d433ae26dcafab inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a8a70a3f31920f2d877d433ae26dcafab">load</a> (System.IO.BinaryReader reader)</td></tr>
+<tr class="separator:a8a70a3f31920f2d877d433ae26dcafab inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa2f64957bd5e772f676a74593213a34 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#afa2f64957bd5e772f676a74593213a34">setPath</a> (string <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a271de300f85d6af13471ed0d0014856b">path</a>)</td></tr>
+<tr class="separator:afa2f64957bd5e772f676a74593213a34 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e5c32ba0011503644f38ac286893aa inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a25e5c32ba0011503644f38ac286893aa">CopySourceResourceFile</a> (string inSrcPath, string inDstPath=null, bool inIsOverwrite=false, bool inIsExistFileRename=false)</td></tr>
+<tr class="separator:a25e5c32ba0011503644f38ac286893aa inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae83fa6eae99bf9bf0b30d070ec964d0 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#aae83fa6eae99bf9bf0b30d070ec964d0">CopyOutsideResourceFile</a> (bool inIsOverwrite=false, bool inIsExistFileRename=false)</td></tr>
+<tr class="separator:aae83fa6eae99bf9bf0b30d070ec964d0 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3603723b472b407496af39d811fcc1b5 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a3603723b472b407496af39d811fcc1b5">deleteResourceFile</a> (Dictionary&lt; string, int &gt; inUsedFilePathCountDic, bool inIsAutoDeleteFile)</td></tr>
+<tr class="separator:a3603723b472b407496af39d811fcc1b5 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d03ae4f87657b4a4b0639ef13bc50dc inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a9d03ae4f87657b4a4b0639ef13bc50dc">getRelatedFiles</a> ()</td></tr>
+<tr class="separator:a9d03ae4f87657b4a4b0639ef13bc50dc inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec3bbe54e819145271751527212c019 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a5ec3bbe54e819145271751527212c019">getInternalFormatFilePath</a> ()</td></tr>
+<tr class="separator:a5ec3bbe54e819145271751527212c019 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adba66a552baf781dc2f420605eeb70f1 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_yukar_1_1_common_1_1_resource.html#a800830fe4d363b59e2ffe98b79ae3c0f">ErrorType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#adba66a552baf781dc2f420605eeb70f1">verify</a> ()</td></tr>
+<tr class="separator:adba66a552baf781dc2f420605eeb70f1 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a275c5ce61a2a53be6f7674d8cd197250 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a275c5ce61a2a53be6f7674d8cd197250">IsError</a> (bool inCheckDispOnly=true)</td></tr>
+<tr class="separator:a275c5ce61a2a53be6f7674d8cd197250 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd892c4ed0d1906644d435126c757da4 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#afd892c4ed0d1906644d435126c757da4">isSystemResource</a> ()</td></tr>
+<tr class="separator:afd892c4ed0d1906644d435126c757da4 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9430b4e3fa08f624feac110fba67ea inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a9e9430b4e3fa08f624feac110fba67ea">isDLCResource</a> ()</td></tr>
+<tr class="separator:a9e9430b4e3fa08f624feac110fba67ea inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8040876e60a70c6fb6f1186d642e9425 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a8040876e60a70c6fb6f1186d642e9425">setToModified</a> ()</td></tr>
+<tr class="separator:a8040876e60a70c6fb6f1186d642e9425 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d6b1b7d26f062573516ae8c3b22c7b3 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a3d6b1b7d26f062573516ae8c3b22c7b3">getPathList</a> ()</td></tr>
+<tr class="separator:a3d6b1b7d26f062573516ae8c3b22c7b3 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6c91dafeebd32f51111b002669febd9 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#aa6c91dafeebd32f51111b002669febd9">getExtension</a> ()</td></tr>
+<tr class="separator:aa6c91dafeebd32f51111b002669febd9 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41423aa997550d8736b67402388d0979 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a41423aa997550d8736b67402388d0979">ChangeReImportPath</a> ()</td></tr>
+<tr class="separator:a41423aa997550d8736b67402388d0979 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f7e4f3ceeae2ca90a3fde3ea8b54b4a inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual List&lt; Guid &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a1f7e4f3ceeae2ca90a3fde3ea8b54b4a">GetUsedResourceIdList</a> ()</td></tr>
+<tr class="separator:a1f7e4f3ceeae2ca90a3fde3ea8b54b4a inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21594e99e1a0035959087d34ee54a3fc inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a21594e99e1a0035959087d34ee54a3fc">ChangeId</a> (Dictionary&lt; Guid, Rom.RomItem &gt; inChangeIdDic)</td></tr>
+<tr class="separator:a21594e99e1a0035959087d34ee54a3fc inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d0377e1f12f0b87bf46c6ca1559c4a inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#af7d0377e1f12f0b87bf46c6ca1559c4a">ClearResourceHolderCache</a> ()</td></tr>
+<tr class="separator:af7d0377e1f12f0b87bf46c6ca1559c4a inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d02d83cbaec207cbfc28f54988d4dc3 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a3d02d83cbaec207cbfc28f54988d4dc3">updateSetuppedThumbnail</a> ()</td></tr>
+<tr class="separator:a3d02d83cbaec207cbfc28f54988d4dc3 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac18b73f8c61471793869c7a804c26d0d inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ac18b73f8c61471793869c7a804c26d0d">reload</a> ()</td></tr>
+<tr class="separator:ac18b73f8c61471793869c7a804c26d0d inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a992b4a3da7d1e46a7b1cfe024a9f7b03 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a992b4a3da7d1e46a7b1cfe024a9f7b03">isExistNewerTimeStamp</a> ()</td></tr>
+<tr class="separator:a992b4a3da7d1e46a7b1cfe024a9f7b03 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dddc2c7963cd3c0efcb6a81421e4639 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a7dddc2c7963cd3c0efcb6a81421e4639">renamePath</a> (string inNewPath)</td></tr>
+<tr class="separator:a7dddc2c7963cd3c0efcb6a81421e4639 inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61893b922e53657fa6a973d2f15ad26f inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a61893b922e53657fa6a973d2f15ad26f">setNativeResourcePath</a> (string inFolderPath)</td></tr>
+<tr class="memdesc:a61893b922e53657fa6a973d2f15ad26f inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">システムプロジェクトyのネイティブリソースのフルパスを設定  <a href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a61893b922e53657fa6a973d2f15ad26f">[詳解]</a><br /></td></tr>
+<tr class="separator:a61893b922e53657fa6a973d2f15ad26f inherit pub_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承公開メンバ関数</td></tr>
+<tr class="memitem:a08881b4720ede98146a1932e6bc0c24b inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a08881b4720ede98146a1932e6bc0c24b">getCategory</a> (string locale=null)</td></tr>
+<tr class="separator:a08881b4720ede98146a1932e6bc0c24b inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9fec218a9809dc4990564ec1506b880 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#aa9fec218a9809dc4990564ec1506b880">RomItem</a> ()</td></tr>
+<tr class="separator:aa9fec218a9809dc4990564ec1506b880 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd6c6243194653e042fff09e32f24589 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">System.Drawing.Bitmap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#acd6c6243194653e042fff09e32f24589">getThumbnail</a> (<a class="el" href="namespace_yukar_1_1_common_1_1_rom.html#a7ab7715f8be535aa3ae04137673ae0fa">THUMBNAILMAKERNOTIFY</a> notify, out bool setNotify)</td></tr>
+<tr class="separator:acd6c6243194653e042fff09e32f24589 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a824e21a1903cdfbb893410d4ca02d842 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">System.Drawing.Bitmap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a824e21a1903cdfbb893410d4ca02d842">getThumbnail</a> (<a class="el" href="namespace_yukar_1_1_common_1_1_rom.html#a7ab7715f8be535aa3ae04137673ae0fa">THUMBNAILMAKERNOTIFY</a> notify)</td></tr>
+<tr class="separator:a824e21a1903cdfbb893410d4ca02d842 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7a7b163eacc8571fcad4a366d9953a1 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">System.Drawing.Bitmap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ac7a7b163eacc8571fcad4a366d9953a1">getThumbnail</a> ()</td></tr>
+<tr class="separator:ac7a7b163eacc8571fcad4a366d9953a1 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a286a882be2b6e72c43733ba8ff1da5cd inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a286a882be2b6e72c43733ba8ff1da5cd">invalidateThumbnail</a> ()</td></tr>
+<tr class="separator:a286a882be2b6e72c43733ba8ff1da5cd inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c9b16e79616d99c445396f8b62fb16 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a38c9b16e79616d99c445396f8b62fb16">invalidateThumbnail</a> (<a class="el" href="namespace_yukar_1_1_common_1_1_rom.html#a7ab7715f8be535aa3ae04137673ae0fa">THUMBNAILMAKERNOTIFY</a> notify)</td></tr>
+<tr class="separator:a38c9b16e79616d99c445396f8b62fb16 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94fbe2764a43425f65a03643e4e08ae6 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a94fbe2764a43425f65a03643e4e08ae6">forceInvalidateThumbnail</a> (<a class="el" href="namespace_yukar_1_1_common_1_1_rom.html#a7ab7715f8be535aa3ae04137673ae0fa">THUMBNAILMAKERNOTIFY</a> notify)</td></tr>
+<tr class="separator:a94fbe2764a43425f65a03643e4e08ae6 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac54a0a9f8ea94e7bc35dfa709959cafc inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ac54a0a9f8ea94e7bc35dfa709959cafc">save</a> (BinaryWriter writer)</td></tr>
+<tr class="separator:ac54a0a9f8ea94e7bc35dfa709959cafc inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f1f8145e720be61f51905aaee3e064 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a49f1f8145e720be61f51905aaee3e064">load</a> (BinaryReader reader)</td></tr>
+<tr class="separator:a49f1f8145e720be61f51905aaee3e064 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4413444e125ab1c6ab8476552e2e305f inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a4413444e125ab1c6ab8476552e2e305f">saveUsedGUID</a> (BinaryWriter writer, bool inIncludeChildUseRomGUID)</td></tr>
+<tr class="memdesc:a4413444e125ab1c6ab8476552e2e305f inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているGUIDの書き出し(ツール用)  <a href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a4413444e125ab1c6ab8476552e2e305f">[詳解]</a><br /></td></tr>
+<tr class="separator:a4413444e125ab1c6ab8476552e2e305f inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4a957a575ed4d5b239087d60570e8e9 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#af4a957a575ed4d5b239087d60570e8e9">saveUsedGUID</a> (BinaryWriter writer)</td></tr>
+<tr class="memdesc:af4a957a575ed4d5b239087d60570e8e9 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているGUIDの書き出し(ツール用)  <a href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#af4a957a575ed4d5b239087d60570e8e9">[詳解]</a><br /></td></tr>
+<tr class="separator:af4a957a575ed4d5b239087d60570e8e9 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab329b6002ce3963792605133c366fbe7 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ab329b6002ce3963792605133c366fbe7">initializingAfterLoading</a> ()</td></tr>
+<tr class="separator:ab329b6002ce3963792605133c366fbe7 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a8db57bb8dec1b8b43abe29e5b4545 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a52a8db57bb8dec1b8b43abe29e5b4545">reImport</a> ()</td></tr>
+<tr class="separator:a52a8db57bb8dec1b8b43abe29e5b4545 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34dfa1908619bef866006511bb4b9b99 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a34dfa1908619bef866006511bb4b9b99">export</a> (string path)</td></tr>
+<tr class="separator:a34dfa1908619bef866006511bb4b9b99 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8255301a41556a64d6d35d667afabe65 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a8255301a41556a64d6d35d667afabe65">onCatalogCleanup</a> ()</td></tr>
+<tr class="separator:a8255301a41556a64d6d35d667afabe65 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f510f413bebd613c07cb0e927afbd2 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ae3f510f413bebd613c07cb0e927afbd2">onNameChanged</a> ()</td></tr>
+<tr class="separator:ae3f510f413bebd613c07cb0e927afbd2 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a896ee7613288023fdc4e36d39f417f7e inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a896ee7613288023fdc4e36d39f417f7e">copyFrom</a> (Common.Rom.RomItem src)</td></tr>
+<tr class="separator:a896ee7613288023fdc4e36d39f417f7e inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a934bec301964629d8ea71a1a844140 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a4a934bec301964629d8ea71a1a844140">CheckRecourceConsistency</a> (<a class="el" href="class_yukar_1_1_common_1_1_catalog.html">Catalog</a> inCatalog)</td></tr>
+<tr class="separator:a4a934bec301964629d8ea71a1a844140 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c8fd6d1b3c6f3b6cfb792d99278de6 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ac9c8fd6d1b3c6f3b6cfb792d99278de6">ChangeId</a> (Dictionary&lt; Guid, Rom.RomItem &gt; inChangeIdDic)</td></tr>
+<tr class="memdesc:ac9c8fd6d1b3c6f3b6cfb792d99278de6 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているIdを対応するロムのIdに差し替える  <a href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ac9c8fd6d1b3c6f3b6cfb792d99278de6">[詳解]</a><br /></td></tr>
+<tr class="separator:ac9c8fd6d1b3c6f3b6cfb792d99278de6 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c54dbf646be3e802a0f69b37c2067c inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a92c54dbf646be3e802a0f69b37c2067c">ClearId</a> (List&lt; Rom.RomItem &gt; inClearRomItemList)</td></tr>
+<tr class="memdesc:a92c54dbf646be3e802a0f69b37c2067c inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">リストのロムの使用を削除  <a href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a92c54dbf646be3e802a0f69b37c2067c">[詳解]</a><br /></td></tr>
+<tr class="separator:a92c54dbf646be3e802a0f69b37c2067c inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed8e41e36e7c3f78fc6c839fd144f40f inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#aed8e41e36e7c3f78fc6c839fd144f40f">Dispose</a> ()</td></tr>
+<tr class="separator:aed8e41e36e7c3f78fc6c839fd144f40f inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f3651e4797a8117197b6a25486e275 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#af8f3651e4797a8117197b6a25486e275">AddUpdatecall</a> (int count)</td></tr>
+<tr class="separator:af8f3651e4797a8117197b6a25486e275 inherit pub_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee13f5a995e93ebecd49ab25ba1a231"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html#aaee13f5a995e93ebecd49ab25ba1a231">save</a> (BinaryWriter writer)</td></tr>
+<tr class="separator:aaee13f5a995e93ebecd49ab25ba1a231"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a190c3b3c5caaa1760f121f8d4702d3d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html#a190c3b3c5caaa1760f121f8d4702d3d5">load</a> (BinaryReader reader)</td></tr>
+<tr class="separator:a190c3b3c5caaa1760f121f8d4702d3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静的公開メンバ関数</h2></td></tr>
+<tr class="memitem:a72fa8d3744d0dc9e57939411dbe003d7"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a72fa8d3744d0dc9e57939411dbe003d7">makeCreatePath</a> (string srcpath, bool overwrite=false)</td></tr>
+<tr class="memdesc:a72fa8d3744d0dc9e57939411dbe003d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">サウンドリソースのパスを生成する  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a72fa8d3744d0dc9e57939411dbe003d7">[詳解]</a><br /></td></tr>
+<tr class="separator:a72fa8d3744d0dc9e57939411dbe003d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69c050d26cffd430a5e8a96751e86512"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a69c050d26cffd430a5e8a96751e86512">import</a> (string srcpath, string createpath)</td></tr>
+<tr class="memdesc:a69c050d26cffd430a5e8a96751e86512"><td class="mdescLeft">&#160;</td><td class="mdescRight">インポート  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a69c050d26cffd430a5e8a96751e86512">[詳解]</a><br /></td></tr>
+<tr class="separator:a69c050d26cffd430a5e8a96751e86512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html">Yukar.Common.Resource.ResourceItem</a> に属する継承静的公開メンバ関数</td></tr>
+<tr class="memitem:a6e0c702606e68f1402547e45fb70fb11 inherit pub_static_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a6e0c702606e68f1402547e45fb70fb11">makeCreateFilePath</a> (Type inType, string inSrcPath, bool inIsOverWrite)</td></tr>
+<tr class="memdesc:a6e0c702606e68f1402547e45fb70fb11 inherit pub_static_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">リソースファイルのコピー先のファイルパスの作成  <a href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a6e0c702606e68f1402547e45fb70fb11">[詳解]</a><br /></td></tr>
+<tr class="separator:a6e0c702606e68f1402547e45fb70fb11 inherit pub_static_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承静的公開メンバ関数</td></tr>
+<tr class="memitem:a43785d4ec4359dbb89c87d802aad7dca inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a43785d4ec4359dbb89c87d802aad7dca">reImport</a> (List&lt; <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">RomItem</a> &gt; inRomList)</td></tr>
+<tr class="separator:a43785d4ec4359dbb89c87d802aad7dca inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa663ac0846405d4bc4bcdc4e4bf6168d inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#aa663ac0846405d4bc4bcdc4e4bf6168d">writeChunk</a> (System.IO.BinaryWriter writer, <a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html">IChunk</a> rom)</td></tr>
+<tr class="separator:aa663ac0846405d4bc4bcdc4e4bf6168d inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef9dfa014cb1ee515c09ceb5e3863d3 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#abef9dfa014cb1ee515c09ceb5e3863d3">readChunk</a> (System.IO.BinaryReader reader, <a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html">IChunk</a> rom)</td></tr>
+<tr class="separator:abef9dfa014cb1ee515c09ceb5e3863d3 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a603c5be24ce5288073b78edb17bdc216 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a603c5be24ce5288073b78edb17bdc216">skipChunk</a> (System.IO.BinaryReader reader)</td></tr>
+<tr class="separator:a603c5be24ce5288073b78edb17bdc216 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d215df3ee08a7291b8421d82beaa224 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a8d215df3ee08a7291b8421d82beaa224">Clone&lt; T &gt;</a> (<a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">RomItem</a> inSrc)</td></tr>
+<tr class="separator:a8d215df3ee08a7291b8421d82beaa224 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af37512cda63578165c1f539e2d87db38 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#af37512cda63578165c1f539e2d87db38">equalChunk</a> (<a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html">IChunk</a> a, <a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html">IChunk</a> b)</td></tr>
+<tr class="separator:af37512cda63578165c1f539e2d87db38 inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aced7083bbd18fc849bef52f0b6c5383b inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html">IChunk</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#aced7083bbd18fc849bef52f0b6c5383b">duplicate</a> (<a class="el" href="interface_yukar_1_1_common_1_1_rom_1_1_i_chunk.html">IChunk</a> rom)</td></tr>
+<tr class="separator:aced7083bbd18fc849bef52f0b6c5383b inherit pub_static_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+公開変数類</h2></td></tr>
+<tr class="memitem:ab6f29183fd74e66084a14105e66047f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_yukar_1_1_common_1_1_resource.html#a5af1f6e03fcaa0a1a3c65f0b6d572eb8">SoundType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ab6f29183fd74e66084a14105e66047f4">soundType</a></td></tr>
+<tr class="memdesc:ab6f29183fd74e66084a14105e66047f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">サウンド種別(Ogg/Wav)  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ab6f29183fd74e66084a14105e66047f4">[詳解]</a><br /></td></tr>
+<tr class="separator:ab6f29183fd74e66084a14105e66047f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13de49809eccfc0e620b40971fe97e18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085a">UsageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a13de49809eccfc0e620b40971fe97e18">usage</a> = UsageType.BGM</td></tr>
+<tr class="memdesc:a13de49809eccfc0e620b40971fe97e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用用途  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a13de49809eccfc0e620b40971fe97e18">[詳解]</a><br /></td></tr>
+<tr class="separator:a13de49809eccfc0e620b40971fe97e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6416712d09859632a8ceb01ff0172e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#af6416712d09859632a8ceb01ff0172e3">isLoop</a></td></tr>
+<tr class="memdesc:af6416712d09859632a8ceb01ff0172e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">ループするかどうか  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#af6416712d09859632a8ceb01ff0172e3">[詳解]</a><br /></td></tr>
+<tr class="separator:af6416712d09859632a8ceb01ff0172e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52241d7985dfdd3cd66f19e93dcc73e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a52241d7985dfdd3cd66f19e93dcc73e8">volume</a> = 100</td></tr>
+<tr class="memdesc:a52241d7985dfdd3cd66f19e93dcc73e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">ボリューム  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a52241d7985dfdd3cd66f19e93dcc73e8">[詳解]</a><br /></td></tr>
+<tr class="separator:a52241d7985dfdd3cd66f19e93dcc73e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c57ec289e769c085416141f2d67f35"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a56c57ec289e769c085416141f2d67f35">importPath</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a56c57ec289e769c085416141f2d67f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">インポート元のパス  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a56c57ec289e769c085416141f2d67f35">[詳解]</a><br /></td></tr>
+<tr class="separator:a56c57ec289e769c085416141f2d67f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html">Yukar.Common.Resource.ResourceItem</a> に属する継承公開変数類</td></tr>
+<tr class="memitem:a32784661621c7ccc6349358324932548 inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">Guid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a32784661621c7ccc6349358324932548">dlcGuid</a> = Guid.Empty</td></tr>
+<tr class="separator:a32784661621c7ccc6349358324932548 inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb66c1983832c6158f66bc6acbbccb5 inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a8fb66c1983832c6158f66bc6acbbccb5">relatedPath</a> = &quot;&quot;</td></tr>
+<tr class="separator:a8fb66c1983832c6158f66bc6acbbccb5 inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a271de300f85d6af13471ed0d0014856b inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a271de300f85d6af13471ed0d0014856b">path</a> = &quot;.\\&quot;</td></tr>
+<tr class="separator:a271de300f85d6af13471ed0d0014856b inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad357d10d2a7b77b47054839fb24f2216 inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_option.html">Option</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ad357d10d2a7b77b47054839fb24f2216">option</a> = new <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_option.html">Option</a>()</td></tr>
+<tr class="separator:ad357d10d2a7b77b47054839fb24f2216 inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b139f75037fd895f13dedf42501af7e inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_yukar_1_1_common_1_1_resource.html#a2680b02628c45d3e06cd0948e92a6d9c">ResourceSource</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a0b139f75037fd895f13dedf42501af7e">source</a> = <a class="el" href="namespace_yukar_1_1_common_1_1_resource.html#a2680b02628c45d3e06cd0948e92a6d9ca138494f07d92acd985579016a27a59a5">ResourceSource.RES_USER</a></td></tr>
+<tr class="separator:a0b139f75037fd895f13dedf42501af7e inherit pub_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承公開変数類</td></tr>
+<tr class="memitem:a9803f88bd733427071bd1224c0745b27 inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">Guid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a9803f88bd733427071bd1224c0745b27">guId</a></td></tr>
+<tr class="separator:a9803f88bd733427071bd1224c0745b27 inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab554ba948f0be72eafeed793fcec0799 inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ab554ba948f0be72eafeed793fcec0799">name</a></td></tr>
+<tr class="separator:ab554ba948f0be72eafeed793fcec0799 inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a278855aaf087f65bb2230bb90f5c6796 inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a278855aaf087f65bb2230bb90f5c6796">tags</a> = &quot;&quot;</td></tr>
+<tr class="separator:a278855aaf087f65bb2230bb90f5c6796 inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76441c6ac5145f145608d62d59f34fdb inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a76441c6ac5145f145608d62d59f34fdb">category</a> = &quot;&quot;</td></tr>
+<tr class="separator:a76441c6ac5145f145608d62d59f34fdb inherit pub_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静的公開変数類</h2></td></tr>
+<tr class="memitem:a5d098dd42c6b8e477e64afea234f0c11"><td class="memItemLeft" align="right" valign="top">static Guid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a5d098dd42c6b8e477e64afea234f0c11">notChangeItemId</a> = new Guid(&quot;{7E2A356B-E1E7-4327-A6ED-D561BF567E2F}&quot;)</td></tr>
+<tr class="separator:a5d098dd42c6b8e477e64afea234f0c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a338183cd2d48620cf243b5e7522cd5ba"><td class="memItemLeft" align="right" valign="top">static readonly <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a338183cd2d48620cf243b5e7522cd5ba">NOT_CHANGE_ITEM</a> = new <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a>() { <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ab554ba948f0be72eafeed793fcec0799">name</a> = Properties.Resources.str_noChange, <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a9803f88bd733427071bd1224c0745b27">guId</a> = <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a5d098dd42c6b8e477e64afea234f0c11">SoundResource.notChangeItemId</a> }</td></tr>
+<tr class="separator:a338183cd2d48620cf243b5e7522cd5ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html">Yukar.Common.Resource.ResourceItem</a> に属する継承静的公開変数類</td></tr>
+<tr class="memitem:a61b90e96218af57c9f8cbe4e8cf97d77 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_yukar_1_1_common_1_1_resource.html#a2680b02628c45d3e06cd0948e92a6d9c">ResourceSource</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a61b90e96218af57c9f8cbe4e8cf97d77">sCurrentSourceMode</a></td></tr>
+<tr class="separator:a61b90e96218af57c9f8cbe4e8cf97d77 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9473413ceddff7535ac9f4d18eb4158 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#af9473413ceddff7535ac9f4d18eb4158">sReferenceLoad</a> = false</td></tr>
+<tr class="separator:af9473413ceddff7535ac9f4d18eb4158 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bbb34af4c20017d9402cd340b06948a inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a5bbb34af4c20017d9402cd340b06948a">sClipboardLoad</a> = false</td></tr>
+<tr class="separator:a5bbb34af4c20017d9402cd340b06948a inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a70d421d9d6a8825d4060750de8489b inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a2a70d421d9d6a8825d4060750de8489b">sAttachResource</a> = true</td></tr>
+<tr class="separator:a2a70d421d9d6a8825d4060750de8489b inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0413de329f7bb4ff32d1feb379dd3d76 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">const string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a0413de329f7bb4ff32d1feb379dd3d76">TAG_3D</a> = &quot;#3D&quot;</td></tr>
+<tr class="separator:a0413de329f7bb4ff32d1feb379dd3d76 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3045c8a97e47d720d0555fe5b82dc39 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">const string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ad3045c8a97e47d720d0555fe5b82dc39">TAG_2D</a> = &quot;#2D&quot;</td></tr>
+<tr class="separator:ad3045c8a97e47d720d0555fe5b82dc39 inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a165bad6ece2d4127353fb0124b7bb20b inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">static Guid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a165bad6ece2d4127353fb0124b7bb20b">sCurrentSourceGuid</a></td></tr>
+<tr class="separator:a165bad6ece2d4127353fb0124b7bb20b inherit pub_static_attribs_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承静的公開変数類</td></tr>
+<tr class="memitem:a80cb9a963b8064a872b6a09482aa95da inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a80cb9a963b8064a872b6a09482aa95da">thumbnailWidth</a> = 128</td></tr>
+<tr class="separator:a80cb9a963b8064a872b6a09482aa95da inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec3661af43a557e6ca932dd462ec2fc inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a5ec3661af43a557e6ca932dd462ec2fc">thumbnailHeight</a> = 128</td></tr>
+<tr class="separator:a5ec3661af43a557e6ca932dd462ec2fc inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94d81401dc5590da84fdc695d881e85b inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a94d81401dc5590da84fdc695d881e85b">CATEGORY_SPLITTER</a> = '\\'</td></tr>
+<tr class="separator:a94d81401dc5590da84fdc695d881e85b inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb11ff513ba842eb17e7fd709849ef0 inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_yukar_1_1_common_1_1_rom.html#a1ae69fd1964f721cac56e64f1256aea6">CREATETHUMBNAIL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#aadb11ff513ba842eb17e7fd709849ef0">createThumbnailFunction</a> = null</td></tr>
+<tr class="separator:aadb11ff513ba842eb17e7fd709849ef0 inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f5866222a3a8f7ff2792dd51009dd3c inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a9f5866222a3a8f7ff2792dd51009dd3c">UnknownRefCount</a> = -2000</td></tr>
+<tr class="separator:a9f5866222a3a8f7ff2792dd51009dd3c inherit pub_static_attribs_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+限定公開メンバ関数</h2></td></tr>
+<tr class="memitem:a5b0e32fd47cbb6e222bd85ca2ed4d8eb"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a5b0e32fd47cbb6e222bd85ca2ed4d8eb">IsErrorImp</a> (bool inCheckDispOnly)</td></tr>
+<tr class="separator:a5b0e32fd47cbb6e222bd85ca2ed4d8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html">Yukar.Common.Resource.ResourceItem</a> に属する継承限定公開メンバ関数</td></tr>
+<tr class="memitem:a951b4bde0c7744721a03d35e0cebe130 inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a951b4bde0c7744721a03d35e0cebe130">IsErrorImp</a> (bool inCheckDispOnly)</td></tr>
+<tr class="separator:a951b4bde0c7744721a03d35e0cebe130 inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eabe9f11a2c783bbfeab0d0334063e5 inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a1eabe9f11a2c783bbfeab0d0334063e5">checkReImportPath</a> (string importPath, string filter, bool changeReImportPath)</td></tr>
+<tr class="separator:a1eabe9f11a2c783bbfeab0d0334063e5 inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a568325565bae6295759e4761bec14273 inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual List&lt; <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_holder.html">ResourceHolder</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a568325565bae6295759e4761bec14273">GetResourceHolderList</a> ()</td></tr>
+<tr class="separator:a568325565bae6295759e4761bec14273 inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a7867cb4715ea7bbe4c737355ae7ab inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a27a7867cb4715ea7bbe4c737355ae7ab">afterRenamePath</a> (string inNewPath)</td></tr>
+<tr class="separator:a27a7867cb4715ea7bbe4c737355ae7ab inherit pro_methods_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承限定公開メンバ関数</td></tr>
+<tr class="memitem:a49e6049d4da34481a04a214d05fca7b5 inherit pro_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a49e6049d4da34481a04a214d05fca7b5">Dispose</a> (bool disposing)</td></tr>
+<tr class="separator:a49e6049d4da34481a04a214d05fca7b5 inherit pro_methods_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
+プロパティ</h2></td></tr>
+<tr class="memitem:a6abfb8353dcc5ab1499cfccd0ef2fe11"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a6abfb8353dcc5ab1499cfccd0ef2fe11">ImportPath</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a6abfb8353dcc5ab1499cfccd0ef2fe11"><td class="mdescLeft">&#160;</td><td class="mdescRight">インポート元のパス(importPathのアクセッサ）  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a6abfb8353dcc5ab1499cfccd0ef2fe11">[詳解]</a><br /></td></tr>
+<tr class="separator:a6abfb8353dcc5ab1499cfccd0ef2fe11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add3b4f4159fb91b273fffaf6e9e5520b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#add3b4f4159fb91b273fffaf6e9e5520b">Usage</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:add3b4f4159fb91b273fffaf6e9e5520b"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用用途(usageのアクセッサ）  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#add3b4f4159fb91b273fffaf6e9e5520b">[詳解]</a><br /></td></tr>
+<tr class="separator:add3b4f4159fb91b273fffaf6e9e5520b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18df7c222beb1de5dae079d493db086a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a18df7c222beb1de5dae079d493db086a">IsLoop</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a18df7c222beb1de5dae079d493db086a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ループするかどうか(isLoopのアクセッサ）  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a18df7c222beb1de5dae079d493db086a">[詳解]</a><br /></td></tr>
+<tr class="separator:a18df7c222beb1de5dae079d493db086a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3b37317bc5d3cbfb148de325703e384"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ad3b37317bc5d3cbfb148de325703e384">Volume</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad3b37317bc5d3cbfb148de325703e384"><td class="mdescLeft">&#160;</td><td class="mdescRight">ボリューム(volumeのアクセッサ）  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ad3b37317bc5d3cbfb148de325703e384">[詳解]</a><br /></td></tr>
+<tr class="separator:ad3b37317bc5d3cbfb148de325703e384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2541d07a76530c4a6749cc056f13d85f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_sharp_kmy_audio.html#ad6919fa7db87cdb8717b85825e1a0e95">SharpKmyAudio.SurroundMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a2541d07a76530c4a6749cc056f13d85f">SurroundMode</a> = <a class="el" href="namespace_sharp_kmy_audio.html#ad6919fa7db87cdb8717b85825e1a0e95a1ba0aa75055b4a8b0280d8fd5f48a291">SharpKmyAudio.SurroundMode.Binaural</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2541d07a76530c4a6749cc056f13d85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">3Dサウンドのサラウンドモード(処理方法)  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a2541d07a76530c4a6749cc056f13d85f">[詳解]</a><br /></td></tr>
+<tr class="separator:a2541d07a76530c4a6749cc056f13d85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd528e57598ea4e14893d57da97a8d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_sharp_kmy_audio.html#a758f20dee6788aed6952a86ff0e6f9bd">SharpKmyAudio.VolumeRollOffType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#affd528e57598ea4e14893d57da97a8d8">VolumeRollOffType</a> = <a class="el" href="namespace_sharp_kmy_audio.html#a758f20dee6788aed6952a86ff0e6f9bda32a843da6ea40ab3b17a3421ccdf671b">SharpKmyAudio.VolumeRollOffType.Linear</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:affd528e57598ea4e14893d57da97a8d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">3Dサウンドの音量減衰方式(減衰処理)  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#affd528e57598ea4e14893d57da97a8d8">[詳解]</a><br /></td></tr>
+<tr class="separator:affd528e57598ea4e14893d57da97a8d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad778c469536198cbd9f5e17bb51da42a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ad778c469536198cbd9f5e17bb51da42a">MinimumDistance</a> = 1<code> [get, set]</code></td></tr>
+<tr class="memdesc:ad778c469536198cbd9f5e17bb51da42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">減衰開始距離  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#ad778c469536198cbd9f5e17bb51da42a">[詳解]</a><br /></td></tr>
+<tr class="separator:ad778c469536198cbd9f5e17bb51da42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabe068d6581440b826700703ac94a2b9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aabe068d6581440b826700703ac94a2b9">MaximumDistance</a> = 30<code> [get, set]</code></td></tr>
+<tr class="memdesc:aabe068d6581440b826700703ac94a2b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">減衰終了距離  <a href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aabe068d6581440b826700703ac94a2b9">[詳解]</a><br /></td></tr>
+<tr class="separator:aabe068d6581440b826700703ac94a2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td colspan="2" onclick="javascript:toggleInherit('properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html">Yukar.Common.Resource.ResourceItem</a> に属する継承プロパティ</td></tr>
+<tr class="memitem:a1a090ce6a509f3ef93d78bccd6f34baf inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a1a090ce6a509f3ef93d78bccd6f34baf">SourcePath</a><code> [get]</code></td></tr>
+<tr class="separator:a1a090ce6a509f3ef93d78bccd6f34baf inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a512db8abbdc29d61daa9792a1328cc41 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a512db8abbdc29d61daa9792a1328cc41">ImportPath</a><code> [get, set]</code></td></tr>
+<tr class="separator:a512db8abbdc29d61daa9792a1328cc41 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab217043679f1253758c118bd85a31cd2 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ab217043679f1253758c118bd85a31cd2">SourceFileName</a><code> [get]</code></td></tr>
+<tr class="separator:ab217043679f1253758c118bd85a31cd2 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52b6a3dda83a8cc48ab8ad201dc5ae0c inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a52b6a3dda83a8cc48ab8ad201dc5ae0c">SourceFolderName</a><code> [get]</code></td></tr>
+<tr class="separator:a52b6a3dda83a8cc48ab8ad201dc5ae0c inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad516279164a44c73f1b53ee79301b508 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#ad516279164a44c73f1b53ee79301b508">StampType</a><code> [get, set]</code></td></tr>
+<tr class="separator:ad516279164a44c73f1b53ee79301b508 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abecbf6ed335d338024d586cfb9aaf698 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#abecbf6ed335d338024d586cfb9aaf698">ForceExport</a><code> [get, set]</code></td></tr>
+<tr class="separator:abecbf6ed335d338024d586cfb9aaf698 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f12051155fa93b3aa24d32b11fb97cf inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a6f12051155fa93b3aa24d32b11fb97cf">ConvertableToInternalFormat</a><code> [get]</code></td></tr>
+<tr class="separator:a6f12051155fa93b3aa24d32b11fb97cf inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a148078f120f3d968cff86ea3fe6b23f7 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a148078f120f3d968cff86ea3fe6b23f7">resourcePath</a><code> [get, set]</code></td></tr>
+<tr class="separator:a148078f120f3d968cff86ea3fe6b23f7 inherit properties_class_yukar_1_1_common_1_1_resource_1_1_resource_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td colspan="2" onclick="javascript:toggleInherit('properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html">Yukar.Common.Rom.RomItem</a> に属する継承プロパティ</td></tr>
+<tr class="memitem:ac3bdea44bce73b98f0eaeef1bbb6ec20 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">System.Drawing.Bitmap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ac3bdea44bce73b98f0eaeef1bbb6ec20">Thumbnail</a><code> [get]</code></td></tr>
+<tr class="separator:ac3bdea44bce73b98f0eaeef1bbb6ec20 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74f9928e135f87f65511db604cacbfd1 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a149f9aa0d5cc6e3ac0cfdc1f5c522f9c">ThumbnailStatusType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a74f9928e135f87f65511db604cacbfd1">ThumbnailStatus</a> = ThumbnailStatusType.Empty<code> [get, set]</code></td></tr>
+<tr class="separator:a74f9928e135f87f65511db604cacbfd1 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae8aea2eb1b5dedc9ef828d4f16733d inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a1ae8aea2eb1b5dedc9ef828d4f16733d">Name</a><code> [get, set]</code></td></tr>
+<tr class="separator:a1ae8aea2eb1b5dedc9ef828d4f16733d inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb9101d5de0eea5ff10b76b8fc5d0b0 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a8fb9101d5de0eea5ff10b76b8fc5d0b0">RefCount</a><code> [get]</code></td></tr>
+<tr class="separator:a8fb9101d5de0eea5ff10b76b8fc5d0b0 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e286806cc113fbbb9090bbbae3afdd6 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a7e286806cc113fbbb9090bbbae3afdd6">UseRefCount</a><code> [get]</code></td></tr>
+<tr class="separator:a7e286806cc113fbbb9090bbbae3afdd6 inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94e26ecd5ee15a6167daf10cfcb0b3ca inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_folder.html">Folder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a94e26ecd5ee15a6167daf10cfcb0b3ca">Parent</a><code> [get, set]</code></td></tr>
+<tr class="separator:a94e26ecd5ee15a6167daf10cfcb0b3ca inherit properties_class_yukar_1_1_common_1_1_rom_1_1_rom_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p >サウンドリソースを管理するクラス </p>
+</div><h2 class="groupheader">列挙型メンバ詳解</h2>
+<a id="aff43603c9289a7852843f27aad87085a" name="aff43603c9289a7852843f27aad87085a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff43603c9289a7852843f27aad87085a">&#9670;&nbsp;</a></span>UsageType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum Yukar.Common.Resource.SoundResource.UsageType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>サウンドの使用用途を定義する列挙型 </p>
+<table class="fieldtable">
+<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="aff43603c9289a7852843f27aad87085aa88183b946cc5f0e8c96b2e66e1c74a7e" name="aff43603c9289a7852843f27aad87085aa88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aff43603c9289a7852843f27aad87085aa7cabb490f03302bbd6f4055c16c80f13" name="aff43603c9289a7852843f27aad87085aa7cabb490f03302bbd6f4055c16c80f13"></a>BGM&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aff43603c9289a7852843f27aad87085aa3b7f57d0beb30d8eb58ce2e1a24cb7d4" name="aff43603c9289a7852843f27aad87085aa3b7f57d0beb30d8eb58ce2e1a24cb7d4"></a>BGS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aff43603c9289a7852843f27aad87085aaf003c44deab679aa2edfaff864c77402" name="aff43603c9289a7852843f27aad87085aaf003c44deab679aa2edfaff864c77402"></a>SE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">メソッド詳解</h2>
+<a id="ab32752607ee0229eada86e7aa5c7e049" name="ab32752607ee0229eada86e7aa5c7e049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab32752607ee0229eada86e7aa5c7e049">&#9670;&nbsp;</a></span>ChangeReImportPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Yukar.Common.Resource.SoundResource.ChangeReImportPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>インポートパスの変更 </p>
+
+<p><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a41423aa997550d8736b67402388d0979">Yukar.Common.Resource.ResourceItem</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a69c050d26cffd430a5e8a96751e86512" name="a69c050d26cffd430a5e8a96751e86512"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69c050d26cffd430a5e8a96751e86512">&#9670;&nbsp;</a></span>import()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a> Yukar.Common.Resource.SoundResource.import </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>srcpath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>createpath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>インポート </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">srcpath</td><td></td></tr>
+    <tr><td class="paramname">createpath</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a5b0e32fd47cbb6e222bd85ca2ed4d8eb" name="a5b0e32fd47cbb6e222bd85ca2ed4d8eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b0e32fd47cbb6e222bd85ca2ed4d8eb">&#9670;&nbsp;</a></span>IsErrorImp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override bool Yukar.Common.Resource.SoundResource.IsErrorImp </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>inCheckDispOnly</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#a951b4bde0c7744721a03d35e0cebe130">Yukar.Common.Resource.ResourceItem</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a853cd4b20712eb3f335fe00770136128" name="a853cd4b20712eb3f335fe00770136128"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a853cd4b20712eb3f335fe00770136128">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Yukar.Common.Resource.SoundResource.load </td>
+          <td>(</td>
+          <td class="paramtype">System.IO.BinaryReader&#160;</td>
+          <td class="paramname"><em>reader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ロード </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reader</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a72fa8d3744d0dc9e57939411dbe003d7" name="a72fa8d3744d0dc9e57939411dbe003d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72fa8d3744d0dc9e57939411dbe003d7">&#9670;&nbsp;</a></span>makeCreatePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string Yukar.Common.Resource.SoundResource.makeCreatePath </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>srcpath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>overwrite</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>サウンドリソースのパスを生成する </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">srcpath</td><td></td></tr>
+    <tr><td class="paramname">overwrite</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="aa022fb56a8b5a56511d6ce196e420081" name="aa022fb56a8b5a56511d6ce196e420081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa022fb56a8b5a56511d6ce196e420081">&#9670;&nbsp;</a></span>reImport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Yukar.Common.Resource.SoundResource.reImport </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>再インポート </p>
+
+<p><a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a52a8db57bb8dec1b8b43abe29e5b4545">Yukar.Common.Rom.RomItem</a>を再実装しています。</p>
+
+</div>
+</div>
+<a id="a0335993142b57e95da6150827e35db28" name="a0335993142b57e95da6150827e35db28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0335993142b57e95da6150827e35db28">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Yukar.Common.Resource.SoundResource.save </td>
+          <td>(</td>
+          <td class="paramtype">System.IO.BinaryWriter&#160;</td>
+          <td class="paramname"><em>writer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>セーブ </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">writer</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af4a2c88a4bb21b2115e0f3f61ef809cc" name="af4a2c88a4bb21b2115e0f3f61ef809cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4a2c88a4bb21b2115e0f3f61ef809cc">&#9670;&nbsp;</a></span>setPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void Yukar.Common.Resource.SoundResource.setPath </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>パスの設定 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_resource_item.html#afa2f64957bd5e772f676a74593213a34">Yukar.Common.Resource.ResourceItem</a>を再実装しています。</p>
+
+</div>
+</div>
+<h2 class="groupheader">メンバ詳解</h2>
+<a id="a56c57ec289e769c085416141f2d67f35" name="a56c57ec289e769c085416141f2d67f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c57ec289e769c085416141f2d67f35">&#9670;&nbsp;</a></span>importPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Yukar.Common.Resource.SoundResource.importPath = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>インポート元のパス </p>
+
+</div>
+</div>
+<a id="af6416712d09859632a8ceb01ff0172e3" name="af6416712d09859632a8ceb01ff0172e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6416712d09859632a8ceb01ff0172e3">&#9670;&nbsp;</a></span>isLoop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Yukar.Common.Resource.SoundResource.isLoop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ループするかどうか </p>
+
+</div>
+</div>
+<a id="a338183cd2d48620cf243b5e7522cd5ba" name="a338183cd2d48620cf243b5e7522cd5ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a338183cd2d48620cf243b5e7522cd5ba">&#9670;&nbsp;</a></span>NOT_CHANGE_ITEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a> Yukar.Common.Resource.SoundResource.NOT_CHANGE_ITEM = new <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html">SoundResource</a>() { <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#ab554ba948f0be72eafeed793fcec0799">name</a> = Properties.Resources.str_noChange, <a class="el" href="class_yukar_1_1_common_1_1_rom_1_1_rom_item.html#a9803f88bd733427071bd1224c0745b27">guId</a> = <a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#a5d098dd42c6b8e477e64afea234f0c11">SoundResource.notChangeItemId</a> }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d098dd42c6b8e477e64afea234f0c11" name="a5d098dd42c6b8e477e64afea234f0c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d098dd42c6b8e477e64afea234f0c11">&#9670;&nbsp;</a></span>notChangeItemId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Guid Yukar.Common.Resource.SoundResource.notChangeItemId = new Guid(&quot;{7E2A356B-E1E7-4327-A6ED-D561BF567E2F}&quot;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6f29183fd74e66084a14105e66047f4" name="ab6f29183fd74e66084a14105e66047f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6f29183fd74e66084a14105e66047f4">&#9670;&nbsp;</a></span>soundType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_yukar_1_1_common_1_1_resource.html#a5af1f6e03fcaa0a1a3c65f0b6d572eb8">SoundType</a> Yukar.Common.Resource.SoundResource.soundType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>サウンド種別(Ogg/Wav) </p>
+
+</div>
+</div>
+<a id="a13de49809eccfc0e620b40971fe97e18" name="a13de49809eccfc0e620b40971fe97e18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13de49809eccfc0e620b40971fe97e18">&#9670;&nbsp;</a></span>usage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_yukar_1_1_common_1_1_resource_1_1_sound_resource.html#aff43603c9289a7852843f27aad87085a">UsageType</a> Yukar.Common.Resource.SoundResource.usage = UsageType.BGM</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>使用用途 </p>
+
+</div>
+</div>
+<a id="a52241d7985dfdd3cd66f19e93dcc73e8" name="a52241d7985dfdd3cd66f19e93dcc73e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52241d7985dfdd3cd66f19e93dcc73e8">&#9670;&nbsp;</a></span>volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Yukar.Common.Resource.SoundResource.volume = 100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ボリューム </p>
+
+</div>
+</div>
+<h2 class="groupheader">プロパティ詳解</h2>
+<a id="a6abfb8353dcc5ab1499cfccd0ef2fe11" name="a6abfb8353dcc5ab1499cfccd0ef2fe11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6abfb8353dcc5ab1499cfccd0ef2fe11">&#9670;&nbsp;</a></span>ImportPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override string Yukar.Common.Resource.SoundResource.ImportPath</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>インポート元のパス(importPathのアクセッサ） </p>
+
+</div>
+</div>
+<a id="a18df7c222beb1de5dae079d493db086a" name="a18df7c222beb1de5dae079d493db086a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18df7c222beb1de5dae079d493db086a">&#9670;&nbsp;</a></span>IsLoop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Yukar.Common.Resource.SoundResource.IsLoop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ループするかどうか(isLoopのアクセッサ） </p>
+
+</div>
+</div>
+<a id="aabe068d6581440b826700703ac94a2b9" name="aabe068d6581440b826700703ac94a2b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe068d6581440b826700703ac94a2b9">&#9670;&nbsp;</a></span>MaximumDistance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Yukar.Common.Resource.SoundResource.MaximumDistance = 30</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>減衰終了距離 </p>
+
+</div>
+</div>
+<a id="ad778c469536198cbd9f5e17bb51da42a" name="ad778c469536198cbd9f5e17bb51da42a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad778c469536198cbd9f5e17bb51da42a">&#9670;&nbsp;</a></span>MinimumDistance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Yukar.Common.Resource.SoundResource.MinimumDistance = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>減衰開始距離 </p>
+
+</div>
+</div>
+<a id="a2541d07a76530c4a6749cc056f13d85f" name="a2541d07a76530c4a6749cc056f13d85f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2541d07a76530c4a6749cc056f13d85f">&#9670;&nbsp;</a></span>SurroundMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_sharp_kmy_audio.html#ad6919fa7db87cdb8717b85825e1a0e95">SharpKmyAudio.SurroundMode</a> Yukar.Common.Resource.SoundResource.SurroundMode = <a class="el" href="namespace_sharp_kmy_audio.html#ad6919fa7db87cdb8717b85825e1a0e95a1ba0aa75055b4a8b0280d8fd5f48a291">SharpKmyAudio.SurroundMode.Binaural</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>3Dサウンドのサラウンドモード(処理方法) </p>
+
+</div>
+</div>
+<a id="add3b4f4159fb91b273fffaf6e9e5520b" name="add3b4f4159fb91b273fffaf6e9e5520b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add3b4f4159fb91b273fffaf6e9e5520b">&#9670;&nbsp;</a></span>Usage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Yukar.Common.Resource.SoundResource.Usage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>使用用途(usageのアクセッサ） </p>
+
+</div>
+</div>
+<a id="ad3b37317bc5d3cbfb148de325703e384" name="ad3b37317bc5d3cbfb148de325703e384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b37317bc5d3cbfb148de325703e384">&#9670;&nbsp;</a></span>Volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Yukar.Common.Resource.SoundResource.Volume</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ボリューム(volumeのアクセッサ） </p>
+
+</div>
+</div>
+<a id="affd528e57598ea4e14893d57da97a8d8" name="affd528e57598ea4e14893d57da97a8d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd528e57598ea4e14893d57da97a8d8">&#9670;&nbsp;</a></span>VolumeRollOffType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_sharp_kmy_audio.html#a758f20dee6788aed6952a86ff0e6f9bd">SharpKmyAudio.VolumeRollOffType</a> Yukar.Common.Resource.SoundResource.VolumeRollOffType = <a class="el" href="namespace_sharp_kmy_audio.html#a758f20dee6788aed6952a86ff0e6f9bda32a843da6ea40ab3b17a3421ccdf671b">SharpKmyAudio.VolumeRollOffType.Linear</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>3Dサウンドの音量減衰方式(減衰処理) </p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.9.4-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+</small></address>
+</body>
+</html>

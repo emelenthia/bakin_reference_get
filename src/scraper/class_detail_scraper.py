@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup, Tag
 import aiohttp
 
 from ..models.main_models import ClassInfo
-from ..models.basic_models import ConstructorInfo, ParameterInfo
+from ..models.basic_models import ConstructorInfo, ParameterInfo, MethodInfo, ExceptionInfo
 from ..utils.html_parser import HTMLParser
 from .http_client import HTTPClient
 
@@ -73,7 +73,11 @@ class ClassDetailScraper:
             constructors = self._extract_constructors(soup, class_name)
             class_info.constructors = constructors
             
-            self.logger.info(f"Successfully scraped details for class: {class_name} (found {len(constructors)} constructors)")
+            # メソッド情報を抽出
+            methods = self._extract_methods(soup, class_name)
+            class_info.methods = methods
+            
+            self.logger.info(f"Successfully scraped details for class: {class_name} (found {len(constructors)} constructors, {len(methods)} methods)")
             return class_info
             
         except (aiohttp.ClientError, asyncio.TimeoutError) as e:
@@ -829,3 +833,489 @@ class ClassDetailScraper:
             return "internal"
         else:
             return "public"
+    
+    def _extract_methods(self, soup: BeautifulSoup, class_name: str) -> List[MethodInfo]:
+        """
+        メソッド情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[MethodInfo]: 抽出されたメソッド情報のリスト
+        """
+        methods = []
+        
+        try:
+            # Doxygenスタイルのメソッドセクションを探す
+            method_sections = self._find_method_sections(soup, class_name)
+            
+            for section in method_sections:
+                method = self._parse_method_from_section(section, class_name)
+                if method:
+                    methods.append(method)
+            
+            # セクションが見つからない場合、テーブルから探す
+            if not methods:
+                methods = self._extract_methods_from_table(soup, class_name)
+            
+            # それでも見つからない場合、コードブロックから探す
+            if not methods:
+                methods = self._extract_methods_from_code(soup, class_name)
+            
+            # 重複を除去
+            methods = self._remove_duplicate_methods(methods)
+            
+            self.logger.debug(f"Extracted {len(methods)} methods for class {class_name}")
+            return methods
+            
+        except Exception as e:
+            self.logger.error(f"Error extracting methods for {class_name}: {e}")
+            return []
+    
+    def _find_method_sections(self, soup: BeautifulSoup, class_name: str) -> List[Tag]:
+        """
+        メソッドセクションを検索
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[Tag]: メソッドセクションのリスト
+        """
+        sections = []
+        
+        # Doxygenの一般的なメソッドセクション
+        method_selectors = [
+            ".memitem",
+            ".memproto", 
+            ".memdoc",
+            "tr",
+            "dl dt",
+            "div[class*='method']",
+            "div[class*='member']",
+            "div[class*='function']"
+        ]
+        
+        for selector in method_selectors:
+            elements = soup.select(selector)
+            for element in elements:
+                text = self.html_parser.extract_text_content(element).lower()
+                
+                # コンストラクタを除外
+                if class_name.lower() in text and "(" in text:
+                    # コンストラクタでない場合のみ追加
+                    if not self._is_constructor_like(text, class_name):
+                        sections.append(element)
+                elif any(method_keyword in text for method_keyword in [
+                    "method", "メソッド", "function", "関数", "()", "returns", "戻り値"
+                ]):
+                    sections.append(element)
+        
+        return sections
+    
+    def _is_constructor_like(self, text: str, class_name: str) -> bool:
+        """
+        テキストがコンストラクタ定義らしいかどうかを判定
+        
+        Args:
+            text: 判定するテキスト
+            class_name: クラス名
+            
+        Returns:
+            bool: コンストラクタ定義らしい場合True
+        """
+        text_lower = text.lower()
+        class_name_lower = class_name.lower()
+        
+        # コンストラクタの特徴的なパターン
+        constructor_indicators = [
+            "constructor", "コンストラクタ", "ctor", "初期化"
+        ]
+        
+        if any(indicator in text_lower for indicator in constructor_indicators):
+            return True
+        
+        # クラス名が戻り値の型として使われていない場合はコンストラクタの可能性
+        if class_name_lower in text_lower:
+            # "返回值" や "戻り値" などがない場合
+            if not any(return_keyword in text_lower for return_keyword in [
+                "return", "戻り値", "返回值", "→", "returns"
+            ]):
+                # アクセス修飾子 + クラス名のパターン
+                if re.search(rf'\b(public|private|protected)\s+{re.escape(class_name_lower)}\s*\(', text_lower):
+                    return True
+        
+        return False
+    
+    def _parse_method_from_section(self, section: Tag, class_name: str) -> Optional[MethodInfo]:
+        """
+        セクションからメソッド情報を解析
+        
+        Args:
+            section: HTMLセクション
+            class_name: クラス名
+            
+        Returns:
+            Optional[MethodInfo]: 解析されたメソッド情報
+        """
+        try:
+            section_text = self.html_parser.extract_text_content(section)
+            
+            # コンストラクタを除外
+            if self._is_constructor_like(section_text, class_name):
+                return None
+            
+            # メソッドのパターンを探す
+            # C#メソッドパターン: [アクセス修飾子] [static] 戻り値の型 メソッド名(パラメータ)
+            method_patterns = [
+                # 完全なメソッド定義
+                r'(public|private|protected|internal)?\s*(static)?\s*(\w+(?:\[\])?(?:\<[^>]+\>)?)\s+(\w+)\s*\(([^)]*)\)',
+                # 戻り値の型 + メソッド名
+                r'(\w+(?:\[\])?(?:\<[^>]+\>)?)\s+(\w+)\s*\(([^)]*)\)',
+                # メソッド名のみ（戻り値の型が別の場所にある場合）
+                r'(\w+)\s*\(([^)]*)\)'
+            ]
+            
+            for pattern in method_patterns:
+                matches = re.finditer(pattern, section_text, re.IGNORECASE)
+                
+                for match in matches:
+                    groups = match.groups()
+                    
+                    if len(groups) == 5:  # 完全なパターン
+                        access_modifier, is_static, return_type, method_name, params = groups
+                        access_modifier = access_modifier or "public"
+                        is_static = bool(is_static)
+                    elif len(groups) == 3 and not groups[0] in ['public', 'private', 'protected']:  # 戻り値の型 + メソッド名
+                        return_type, method_name, params = groups
+                        access_modifier = "public"
+                        is_static = "static" in section_text.lower()
+                    elif len(groups) == 2:  # メソッド名のみ
+                        method_name, params = groups
+                        return_type = self._extract_return_type_from_section(section)
+                        access_modifier = "public"
+                        is_static = "static" in section_text.lower()
+                    else:
+                        continue
+                    
+                    # クラス名と同じメソッド名はスキップ（コンストラクタの可能性）
+                    if method_name.lower() == class_name.lower():
+                        continue
+                    
+                    # C#の予約語や特殊なメソッド名をスキップ
+                    if method_name.lower() in ['get', 'set', 'add', 'remove', 'new', 'static', 'const']:
+                        continue
+                    
+                    # パラメータを解析
+                    parameters = self._parse_parameters_from_definition(f"method({params})")
+                    
+                    # 説明を抽出
+                    description = self._extract_description_from_section(section)
+                    
+                    # 例外情報を抽出
+                    exceptions = self._extract_exceptions_from_section(section)
+                    
+                    method_info = MethodInfo(
+                        name=method_name,
+                        return_type=return_type or "void",
+                        parameters=parameters,
+                        description=description,
+                        is_static=is_static,
+                        access_modifier=access_modifier,
+                        exceptions=exceptions if exceptions else None
+                    )
+                    
+                    return method_info
+            
+            return None
+            
+        except Exception as e:
+            self.logger.debug(f"Error parsing method from section: {e}")
+            return None
+    
+    def _extract_return_type_from_section(self, section: Tag) -> Optional[str]:
+        """
+        セクションから戻り値の型を抽出
+        
+        Args:
+            section: HTMLセクション
+            
+        Returns:
+            Optional[str]: 戻り値の型
+        """
+        section_text = self.html_parser.extract_text_content(section)
+        
+        # 戻り値の型に関するキーワードを探す
+        return_patterns = [
+            r'戻り値\s*[:：]\s*(\w+(?:\[\])?)',
+            r'return\s+type\s*[:：]\s*(\w+(?:\[\])?)',
+            r'returns?\s*[:：]\s*(\w+(?:\[\])?)',
+            r'→\s*(\w+(?:\[\])?)'
+        ]
+        
+        for pattern in return_patterns:
+            match = re.search(pattern, section_text, re.IGNORECASE)
+            if match:
+                return match.group(1)
+        
+        return "void"
+    
+    def _extract_exceptions_from_section(self, section: Tag) -> List[ExceptionInfo]:
+        """
+        セクションから例外情報を抽出
+        
+        Args:
+            section: HTMLセクション
+            
+        Returns:
+            List[ExceptionInfo]: 抽出された例外情報のリスト
+        """
+        exceptions = []
+        section_text = self.html_parser.extract_text_content(section)
+        
+        # 例外情報のパターンを探す
+        exception_patterns = [
+            r'throws?\s+(\w+Exception)(?:\s*[:：]\s*([^.\n]+))?',
+            r'例外\s*[:：]\s*(\w+Exception)(?:\s*[:：]\s*([^.\n]+))?',
+            r'(\w+Exception)\s*[:：]\s*([^.\n]+)',
+            r'スロー\s*[:：]\s*(\w+Exception)(?:\s*[:：]\s*([^.\n]+))?'
+        ]
+        
+        for pattern in exception_patterns:
+            matches = re.finditer(pattern, section_text, re.IGNORECASE)
+            for match in matches:
+                groups = match.groups()
+                exception_type = groups[0]
+                exception_desc = groups[1] if len(groups) > 1 and groups[1] else "例外が発生する可能性があります"
+                
+                exceptions.append(ExceptionInfo(
+                    type=exception_type,
+                    description=exception_desc.strip()
+                ))
+        
+        return exceptions
+    
+    def _extract_methods_from_table(self, soup: BeautifulSoup, class_name: str) -> List[MethodInfo]:
+        """
+        テーブルからメソッド情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[MethodInfo]: 抽出されたメソッド情報のリスト
+        """
+        methods = []
+        
+        tables = soup.select("table")
+        for table in tables:
+            rows = table.select("tr")
+            
+            for row in rows:
+                cells = row.select("td, th")
+                if len(cells) >= 2:
+                    first_cell_text = self.html_parser.extract_text_content(cells[0])
+                    
+                    # メソッド定義らしいパターンをチェック
+                    if ("(" in first_cell_text and ")" in first_cell_text and 
+                        not self._is_constructor_like(first_cell_text, class_name)):
+                        
+                        # メソッド情報を解析
+                        method = self._parse_method_from_table_cell(first_cell_text, cells, class_name)
+                        if method:
+                            methods.append(method)
+        
+        return methods
+    
+    def _parse_method_from_table_cell(self, method_text: str, cells: List[Tag], class_name: str) -> Optional[MethodInfo]:
+        """
+        テーブルセルからメソッド情報を解析
+        
+        Args:
+            method_text: メソッドテキスト
+            cells: テーブルセルのリスト
+            class_name: クラス名
+            
+        Returns:
+            Optional[MethodInfo]: 解析されたメソッド情報
+        """
+        try:
+            # メソッド名とパラメータを抽出
+            method_match = re.search(r'(\w+)\s*\(([^)]*)\)', method_text)
+            if not method_match:
+                return None
+            
+            method_name = method_match.group(1)
+            param_text = method_match.group(2)
+            
+            # クラス名と同じメソッド名はスキップ
+            if method_name.lower() == class_name.lower():
+                return None
+            
+            # パラメータを解析
+            parameters = self._parse_parameters_from_definition(f"method({param_text})")
+            
+            # 戻り値の型を抽出
+            return_type = self._extract_return_type_from_text(method_text)
+            
+            # 説明を取得（2番目のセル）
+            description = None
+            if len(cells) > 1:
+                description = self.html_parser.extract_text_content(cells[1])
+                if description and len(description.strip()) < self.MIN_DESCRIPTION_LENGTH:
+                    description = None
+            
+            # 静的メソッドかどうか判定
+            is_static = "static" in method_text.lower()
+            
+            # アクセス修飾子を判定
+            access_modifier = "public"
+            if "private" in method_text.lower():
+                access_modifier = "private"
+            elif "protected" in method_text.lower():
+                access_modifier = "protected"
+            
+            return MethodInfo(
+                name=method_name,
+                return_type=return_type,
+                parameters=parameters,
+                description=description,
+                is_static=is_static,
+                access_modifier=access_modifier,
+                exceptions=None
+            )
+            
+        except Exception as e:
+            self.logger.debug(f"Error parsing method from table cell: {e}")
+            return None
+    
+    def _extract_return_type_from_text(self, text: str) -> str:
+        """
+        テキストから戻り値の型を抽出
+        
+        Args:
+            text: 解析するテキスト
+            
+        Returns:
+            str: 戻り値の型（見つからない場合は"void"）
+        """
+        # 戻り値の型のパターンを探す
+        # 例: "string GetName()" -> "string"
+        return_type_patterns = [
+            r'\b(void|string|int|bool|float|double|object|byte\[\]?|char\[\]?)\s+\w+\s*\(',
+            r'\b(\w+)\s+\w+\s*\(',  # 一般的な型
+        ]
+        
+        for pattern in return_type_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                return_type = match.group(1)
+                # C#の予約語でない場合のみ返す
+                if return_type.lower() not in ['public', 'private', 'protected', 'static', 'class']:
+                    return return_type
+        
+        return "void"
+    
+    def _extract_methods_from_code(self, soup: BeautifulSoup, class_name: str) -> List[MethodInfo]:
+        """
+        コードブロックからメソッド情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[MethodInfo]: 抽出されたメソッド情報のリスト
+        """
+        methods = []
+        seen_signatures = set()
+        
+        code_elements = soup.select("code, pre, .code, .definition, .memproto")
+        
+        for element in code_elements:
+            text = self.html_parser.extract_text_content(element)
+            
+            # C#のメソッドパターンを検索
+            method_patterns = [
+                # 完全なメソッド定義
+                r'(public|private|protected|internal)?\s*(static)?\s*(\w+(?:\[\])?(?:\<[^>]+\>)?)\s+(\w+)\s*\(([^)]*)\)',
+                # シンプルなメソッド定義
+                r'(\w+(?:\[\])?)\s+(\w+)\s*\(([^)]*)\)'
+            ]
+            
+            for pattern in method_patterns:
+                matches = re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE)
+                
+                for match in matches:
+                    groups = match.groups()
+                    
+                    if len(groups) == 5:  # 完全なパターン
+                        access_modifier, is_static, return_type, method_name, params = groups
+                        access_modifier = access_modifier or "public"
+                        is_static = bool(is_static)
+                    elif len(groups) == 3:  # シンプルなパターン
+                        return_type, method_name, params = groups
+                        access_modifier = "public"
+                        is_static = "static" in text.lower()
+                    else:
+                        continue
+                    
+                    # コンストラクタやクラス名と同じメソッドはスキップ
+                    if (method_name.lower() == class_name.lower() or
+                        self._is_constructor_like(match.group(0), class_name)):
+                        continue
+                    
+                    # C#の予約語をスキップ
+                    if method_name.lower() in ['get', 'set', 'add', 'remove', 'new', 'static', 'const', 'class']:
+                        continue
+                    
+                    # パラメータを解析
+                    parameters = self._parse_parameters_from_definition(f"method({params})")
+                    
+                    # 重複チェック
+                    param_signature = ','.join([f"{p.type} {p.name}" for p in parameters])
+                    signature = f"{return_type} {method_name}({param_signature})"
+                    
+                    if signature not in seen_signatures:
+                        seen_signatures.add(signature)
+                        
+                        method = MethodInfo(
+                            name=method_name,
+                            return_type=return_type,
+                            parameters=parameters,
+                            description=None,
+                            is_static=is_static,
+                            access_modifier=access_modifier,
+                            exceptions=None
+                        )
+                        methods.append(method)
+        
+        return methods
+    
+    def _remove_duplicate_methods(self, methods: List[MethodInfo]) -> List[MethodInfo]:
+        """
+        重複するメソッドを除去
+        
+        Args:
+            methods: メソッド情報のリスト
+            
+        Returns:
+            List[MethodInfo]: 重複を除去したメソッド情報のリスト
+        """
+        seen_signatures = set()
+        unique_methods = []
+        
+        for method in methods:
+            # パラメータのシグネチャを作成
+            param_signature = ','.join([f"{p.type} {p.name}" for p in method.parameters])
+            signature = f"{method.return_type} {method.name}({param_signature})"
+            
+            if signature not in seen_signatures:
+                seen_signatures.add(signature)
+                unique_methods.append(method)
+        
+        return unique_methods
