@@ -40,37 +40,32 @@ async def test_single_class_scraping():
     with open(classes_list_path, 'r', encoding='utf-8') as f:
         classes_data = json.load(f)
     
-    # テスト用のクラスを選択（コンストラクタがありそうなクラスを探す）
+    # 特定のクラスをテスト対象として選択
     test_class = None
     test_namespace = None
     
-    # より一般的なクラス名を探す（コンストラクタがある可能性が高い）
-    target_classes = ['GameObject', 'Component', 'Vector3', 'Color', 'Transform', 'Renderer']
+    # SoundResourceクラスを探す
+    target_class_name = 'SoundResource'
     
     for namespace in classes_data.get('namespaces', []):
-        if namespace.get('classes') and len(namespace['classes']) > 0:
+        if namespace.get('classes'):
             for cls in namespace['classes']:
-                if any(target in cls['name'] for target in target_classes):
+                if cls['name'] == target_class_name:
                     test_class = cls
                     test_namespace = namespace['name']
+                    logger.info(f"Found target class: {cls['name']} in namespace: {namespace['name']}")
                     break
             if test_class:
                 break
     
-    # 見つからない場合はYukarネームスペースから選択
+    # SoundResourceが見つからない場合は、フォールバック処理
     if not test_class:
+        logger.warning(f"Target class '{target_class_name}' not found, using fallback selection")
         for namespace in classes_data.get('namespaces', []):
             if namespace.get('name') == 'Yukar' and namespace.get('classes') and len(namespace['classes']) > 0:
-                # AbnormalActionEffectParamBase クラスを選択（説明がありそう）
-                for cls in namespace['classes']:
-                    if cls['name'] == 'AbnormalActionEffectParamBase':
-                        test_class = cls
-                        test_namespace = namespace['name']
-                        break
-                if not test_class:
-                    # 見つからない場合は最初のクラスを使用
-                    test_class = namespace['classes'][0]
-                    test_namespace = namespace['name']
+                # 最初のクラスを使用
+                test_class = namespace['classes'][0]
+                test_namespace = namespace['name']
                 break
     
     if not test_class:
@@ -109,22 +104,46 @@ async def test_single_class_scraping():
                 'class_details': class_info.to_dict()
             }
             
-            output_path = Path(__file__).parent.parent / "workspace/single_class_test.json"
+            output_path = Path(__file__).parent.parent / "workspace/soundresource_test.json"
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(output_data, f, ensure_ascii=False, indent=2)
             
             logger.info(f"Class details saved to: {output_path}")
             
             # 取得した情報を表示
-            print("\n" + "="*50)
+            print("\n" + "="*70)
             print("SCRAPED CLASS DETAILS")
-            print("="*50)
+            print("="*70)
             print(f"Name: {class_info.name}")
             print(f"Full Name: {class_info.full_name}")
             print(f"Source URL: {corrected_url}")
             print(f"Description: {class_info.description or 'Not found'}")
             print(f"Inheritance: {class_info.inheritance or 'Not found'}")
-            print("="*50)
+            print(f"\nConstructors found: {len(class_info.constructors)}")
+            print(f"Methods found: {len(class_info.methods)}")
+            print(f"Properties found: {len(class_info.properties)}")
+            print(f"Fields found: {len(class_info.fields)}")
+            print(f"Events found: {len(class_info.events)}")
+            
+            # メソッド詳細を表示
+            if class_info.methods:
+                print(f"\n--- METHODS ({len(class_info.methods)}) ---")
+                for i, method in enumerate(class_info.methods, 1):
+                    print(f"{i}. {method.access_modifier} {'static ' if method.is_static else ''}{method.return_type} {method.name}({', '.join([f'{p.type} {p.name}' for p in method.parameters])})")
+                    if method.description:
+                        print(f"   Description: {method.description[:100]}{'...' if len(method.description) > 100 else ''}")
+                    if method.exceptions:
+                        print(f"   Exceptions: {', '.join([e.type for e in method.exceptions])}")
+            
+            # コンストラクタ詳細を表示
+            if class_info.constructors:
+                print(f"\n--- CONSTRUCTORS ({len(class_info.constructors)}) ---")
+                for i, ctor in enumerate(class_info.constructors, 1):
+                    print(f"{i}. {ctor.access_modifier} {ctor.name}({', '.join([f'{p.type} {p.name}' for p in ctor.parameters])})")
+                    if ctor.description:
+                        print(f"   Description: {ctor.description[:100]}{'...' if len(ctor.description) > 100 else ''}")
+            
+            print("="*70)
             
         else:
             logger.error("Failed to scrape class details")
