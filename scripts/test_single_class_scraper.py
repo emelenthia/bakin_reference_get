@@ -106,7 +106,7 @@ async def test_single_class_scraping():
             print("="*50)
             print(f"Name: {class_info.name}")
             print(f"Full Name: {class_info.full_name}")
-            print(f"URL: {class_info.url}")
+            print(f"Source URL: {corrected_url}")
             print(f"Description: {class_info.description or 'Not found'}")
             print(f"Inheritance: {class_info.inheritance or 'Not found'}")
             print("="*50)

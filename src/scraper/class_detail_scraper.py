@@ -5,10 +5,12 @@
 HTMLの構造に基づいた柔軟なセレクター戦略を実装しています。
 """
 
+import asyncio
 import logging
 import re
 from typing import Optional, Dict, Any
 from bs4 import BeautifulSoup, Tag
+import aiohttp
 
 from ..models.main_models import ClassInfo
 from ..utils.html_parser import HTMLParser
@@ -24,6 +26,10 @@ class ClassDetailScraper:
     - 継承情報
     - その他のメタデータ
     """
+    
+    # 定数定義
+    MIN_DESCRIPTION_LENGTH = 5
+    MIN_MEANINGFUL_TEXT_LENGTH = 10
     
     def __init__(self, http_client: HTTPClient):
         """
@@ -65,8 +71,11 @@ class ClassDetailScraper:
             self.logger.info(f"Successfully scraped details for class: {class_name}")
             return class_info
             
+        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+            self.logger.error(f"Network error while scraping class details for {class_name}: {e}")
+            return None
         except Exception as e:
-            self.logger.error(f"Failed to scrape class details for {class_name}: {e}")
+            self.logger.error(f"Unexpected error while scraping class details for {class_name}: {e}")
             return None
     
     def _extract_basic_class_info(self, soup: BeautifulSoup, class_name: str, 
@@ -118,7 +127,7 @@ class ClassDetailScraper:
             first_p = textblock.select_one("p")
             if first_p:
                 description = self.html_parser.extract_text_content(first_p)
-                if description and len(description.strip()) > 5:
+                if description and len(description.strip()) > self.MIN_DESCRIPTION_LENGTH:
                     return self.html_parser.clean_html_text(description)
         
         # 2. .memdoc内の説明を探す
@@ -127,7 +136,7 @@ class ClassDetailScraper:
             first_p = memdoc.select_one("p")
             if first_p:
                 description = self.html_parser.extract_text_content(first_p)
-                if description and len(description.strip()) > 5:
+                if description and len(description.strip()) > self.MIN_DESCRIPTION_LENGTH:
                     return self.html_parser.clean_html_text(description)
         
         # 3. div.contents内の最初の意味のある段落を探す
@@ -137,7 +146,7 @@ class ClassDetailScraper:
             for p in paragraphs:
                 text = self.html_parser.extract_text_content(p)
                 # ナビゲーション的なテキストを除外
-                if (text and len(text.strip()) > 10 and 
+                if (text and len(text.strip()) > self.MIN_MEANINGFUL_TEXT_LENGTH and 
                     not any(nav_text in text for nav_text in [
                         "公開メンバ関数", "公開変数類", "全メンバ一覧", 
                         "#include", "Public Member Functions", "Public Attributes"
@@ -231,6 +240,29 @@ class ClassDetailScraper:
         
         return None
     
+    def _extract_from_table_by_keywords(self, soup: BeautifulSoup, keywords: list) -> Optional[str]:
+        """
+        テーブルからキーワードに基づいて情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            keywords: 検索するキーワードのリスト
+            
+        Returns:
+            Optional[str]: 抽出された情報
+        """
+        tables = soup.select("table")
+        for table in tables:
+            rows = table.select("tr")
+            for row in rows:
+                cells = row.select("td, th")
+                if len(cells) >= 2:
+                    first_cell_text = self.html_parser.extract_text_content(cells[0]).lower()
+                    if any(keyword in first_cell_text for keyword in keywords):
+                        return self.html_parser.extract_text_content(cells[1])
+        
+        return None
+    
     def _extract_inheritance_from_table(self, soup: BeautifulSoup) -> Optional[str]:
         """
         テーブルから継承情報を抽出
@@ -241,17 +273,9 @@ class ClassDetailScraper:
         Returns:
             Optional[str]: 抽出された継承情報
         """
-        tables = soup.select("table")
-        for table in tables:
-            rows = table.select("tr")
-            for row in rows:
-                cells = row.select("td, th")
-                if len(cells) >= 2:
-                    first_cell_text = self.html_parser.extract_text_content(cells[0]).lower()
-                    if any(keyword in first_cell_text for keyword in ["継承", "inheritance", "base", "extends"]):
-                        return self.html_parser.extract_text_content(cells[1])
-        
-        return None
+        return self._extract_from_table_by_keywords(
+            soup, ["継承", "inheritance", "base", "extends", "parent"]
+        )
     
     def _extract_inheritance_from_class_definition(self, soup: BeautifulSoup) -> Optional[str]:
         """
@@ -273,17 +297,9 @@ class ClassDetailScraper:
                 return text
         
         # 2. テーブル内の継承情報を探す
-        tables = soup.select("table")
-        for table in tables:
-            rows = table.select("tr")
-            for row in rows:
-                cells = row.select("td, th")
-                if len(cells) >= 2:
-                    first_cell = self.html_parser.extract_text_content(cells[0]).lower()
-                    if any(keyword in first_cell for keyword in ["継承", "inheritance", "base", "parent"]):
-                        inheritance_text = self.html_parser.extract_text_content(cells[1])
-                        if inheritance_text and inheritance_text.strip():
-                            return inheritance_text
+        inheritance_text = self._extract_inheritance_from_table(soup)
+        if inheritance_text and inheritance_text.strip():
+            return inheritance_text
         
         # 3. クラス定義のパターンを検索
         code_elements = soup.select("code, pre, .code, .definition, .memproto")
