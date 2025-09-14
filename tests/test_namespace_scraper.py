@@ -8,9 +8,11 @@ import pytest
 import asyncio
 from unittest.mock import Mock, AsyncMock, patch
 from bs4 import BeautifulSoup
+import aiohttp
 
 from src.scraper.namespace_scraper import NamespaceScraper
 from src.models.main_models import NamespaceInfo, ClassInfo
+from src.scraper.exceptions import NetworkError, ParseError, ScrapingError
 
 
 class TestNamespaceScraper:
@@ -188,6 +190,67 @@ async def test_scrape_bakin_namespaces_function():
         
         assert len(result) == 1
         assert result[0].name == "Test.Namespace"
+
+
+class TestNamespaceScraperExceptions:
+    """例外処理のテスト"""
+    
+    @pytest.fixture
+    def scraper(self):
+        """テスト用のNamespaceScraperインスタンス"""
+        return NamespaceScraper()
+    
+    @pytest.mark.asyncio
+    async def test_network_error_handling(self, scraper):
+        """ネットワークエラーのハンドリングテスト"""
+        with patch.object(scraper.http_client, 'get', new_callable=AsyncMock) as mock_get:
+            mock_get.side_effect = aiohttp.ClientError("Network error")
+            
+            with patch.object(scraper.http_client, '__aenter__', return_value=scraper.http_client):
+                with patch.object(scraper.http_client, '__aexit__', return_value=None):
+                    with pytest.raises(NetworkError):
+                        await scraper.scrape_namespaces()
+    
+    @pytest.mark.asyncio
+    async def test_parse_error_handling(self, scraper):
+        """解析エラーのハンドリングテスト"""
+        with patch.object(scraper.http_client, 'get', new_callable=AsyncMock) as mock_get:
+            mock_get.return_value = "invalid html"
+            
+            with patch.object(scraper.html_parser, 'parse_html') as mock_parse:
+                mock_parse.side_effect = ValueError("Parse error")
+                
+                with patch.object(scraper.http_client, '__aenter__', return_value=scraper.http_client):
+                    with patch.object(scraper.http_client, '__aexit__', return_value=None):
+                        with pytest.raises(ParseError):
+                            await scraper.scrape_namespaces()
+
+
+class TestNamespaceScraperPerformance:
+    """パフォーマンス関連のテスト"""
+    
+    @pytest.fixture
+    def scraper(self):
+        """テスト用のNamespaceScraperインスタンス"""
+        return NamespaceScraper()
+    
+    def test_efficient_namespace_matching(self, scraper):
+        """効率的な名前空間マッチングのテスト"""
+        class_info = ClassInfo("TestClass", "Yukar.Engine.TestClass", "test_url")
+        namespace_names = ["Yukar", "Yukar.Engine", "Yukar.Common", "SharpKmy"]
+        
+        result = scraper._determine_namespace_for_class(class_info, namespace_names)
+        
+        # より具体的な名前空間が選択されることを確認
+        assert result == "Yukar.Engine"
+    
+    def test_url_pattern_matching(self, scraper):
+        """URLパターンマッチングのテスト"""
+        class_info = ClassInfo("TestClass", "TestClass", "https://example.com/yukar_test.html")
+        
+        result = scraper._infer_namespace_from_class(class_info)
+        
+        assert result == "Yukar"
 
 
 if __name__ == "__main__":

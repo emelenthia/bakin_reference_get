@@ -10,9 +10,30 @@ import logging
 from typing import List, Optional, Dict, Tuple
 from urllib.parse import urljoin
 
+import aiohttp
+
 from ..models.main_models import NamespaceInfo, ClassInfo
 from ..scraper.http_client import HTTPClient
 from ..utils.html_parser import HTMLParser
+from .exceptions import NetworkError, ParseError, ScrapingError
+
+
+# 定数定義
+NAMESPACE_URL_PATTERNS = {
+    'yukar': 'Yukar',
+    'sharp': 'SharpKmy',
+    'kmy': 'kmyPhysics'
+}
+
+TABLE_SELECTORS = {
+    'directory': 'table.directory',
+    'memberdecls': 'table.memberdecls'
+}
+
+LINK_PATTERNS = {
+    'namespace': 'namespace',
+    'class': 'class'
+}
 
 
 class NamespaceScraper:
@@ -35,7 +56,11 @@ class NamespaceScraper:
         self.logger = logging.getLogger(__name__)
         
         # HTTPクライアントとHTMLパーサーを初期化
-        self.http_client = HTTPClient(base_url=base_url)
+        # 適切なUser-Agentヘッダーを設定してボット識別とレート制限回避
+        self.http_client = HTTPClient(
+            base_url=base_url,
+            user_agent="BakinDocScraper/1.0 (+research purposes)"
+        )
         self.html_parser = HTMLParser(base_url=base_url)
     
     async def scrape_namespaces(self) -> List[NamespaceInfo]:
@@ -64,9 +89,15 @@ class NamespaceScraper:
                 self.logger.info(f"Successfully scraped {len(namespaces)} namespaces")
                 return namespaces
                 
+        except aiohttp.ClientError as e:
+            self.logger.error(f"Network error during scraping: {e}")
+            raise NetworkError(f"Failed to fetch namespaces: {e}") from e
+        except (ValueError, AttributeError) as e:
+            self.logger.error(f"HTML parsing error: {e}")
+            raise ParseError(f"Failed to parse HTML content: {e}") from e
         except Exception as e:
-            self.logger.error(f"Error scraping namespaces: {e}")
-            raise
+            self.logger.error(f"Unexpected error scraping namespaces: {e}")
+            raise ScrapingError(f"Scraping failed: {e}") from e
     
     async def _extract_namespaces_from_html(self, soup) -> List[NamespaceInfo]:
         """
@@ -129,11 +160,8 @@ class NamespaceScraper:
         Returns:
             List[NamespaceInfo]: 名前空間情報のリスト
         """
-        # 名前空間とクラスの辞書を作成
-        namespace_dict = {}
-        
         # ディレクトリテーブルを取得
-        directory_table = soup.select_one("table.directory")
+        directory_table = soup.select_one(TABLE_SELECTORS['directory'])
         
         if not directory_table:
             self.logger.warning("Could not find table.directory")
@@ -141,16 +169,41 @@ class NamespaceScraper:
         
         # 全てのリンクを取得
         all_links = directory_table.select("a")
-        
         self.logger.info(f"Found {len(all_links)} total links in directory table")
         
-        # 名前空間リンクを処理
-        namespace_links = [link for link in all_links if 'namespace' in link.get('href', '')]
-        class_links = [link for link in all_links if 'class' in link.get('href', '')]
+        # リンクを分類
+        namespace_links = [link for link in all_links if LINK_PATTERNS['namespace'] in link.get('href', '')]
+        class_links = [link for link in all_links if LINK_PATTERNS['class'] in link.get('href', '')]
         
         self.logger.info(f"Found {len(namespace_links)} namespace links and {len(class_links)} class links")
         
         # 名前空間を初期化
+        namespace_dict = self._initialize_namespaces_from_links(namespace_links)
+        
+        # クラスを名前空間に割り当て
+        self._assign_classes_to_namespaces(class_links, namespace_dict)
+        
+        # 結果をリストに変換
+        namespaces = list(namespace_dict.values())
+        
+        # 統計情報をログ出力
+        total_classes = sum(len(ns.classes) for ns in namespaces)
+        self.logger.info(f"Extracted {len(namespaces)} namespaces with {total_classes} total classes")
+        
+        return namespaces
+    
+    def _initialize_namespaces_from_links(self, namespace_links: list) -> Dict[str, NamespaceInfo]:
+        """
+        名前空間リンクから名前空間辞書を初期化
+        
+        Args:
+            namespace_links: 名前空間リンクのリスト
+            
+        Returns:
+            Dict[str, NamespaceInfo]: 名前空間辞書
+        """
+        namespace_dict = {}
+        
         for link in namespace_links:
             try:
                 namespace_name = self.html_parser.extract_text_content(link)
@@ -158,8 +211,6 @@ class NamespaceScraper:
                 
                 if namespace_name and namespace_href:
                     namespace_url = self.html_parser.to_absolute_url(namespace_href)
-                    
-                    # 名前空間の説明を取得
                     description = self._extract_namespace_description(link)
                     
                     namespace_dict[namespace_name] = NamespaceInfo(
@@ -175,7 +226,16 @@ class NamespaceScraper:
                 self.logger.warning(f"Error processing namespace link {link}: {e}")
                 continue
         
-        # クラスを対応する名前空間に割り当て
+        return namespace_dict
+    
+    def _assign_classes_to_namespaces(self, class_links: list, namespace_dict: Dict[str, NamespaceInfo]) -> None:
+        """
+        クラスリンクを対応する名前空間に割り当て
+        
+        Args:
+            class_links: クラスリンクのリスト
+            namespace_dict: 名前空間辞書
+        """
         for link in class_links:
             try:
                 class_info = self._extract_class_info_from_link(link)
@@ -189,30 +249,33 @@ class NamespaceScraper:
                     else:
                         # 名前空間が見つからない場合は、新しい名前空間を作成
                         inferred_namespace = self._infer_namespace_from_class(class_info)
-                        if inferred_namespace not in namespace_dict:
-                            namespace_dict[inferred_namespace] = NamespaceInfo(
-                                name=inferred_namespace,
-                                url="",  # URLは不明
-                                classes=[],
-                                description=f"Inferred namespace for {class_info.name}"
-                            )
-                            self.logger.debug(f"Created inferred namespace: {inferred_namespace}")
-                        
-                        namespace_dict[inferred_namespace].classes.append(class_info)
-                        self.logger.debug(f"Added class {class_info.name} to inferred namespace {inferred_namespace}")
+                        self._create_inferred_namespace(inferred_namespace, class_info, namespace_dict)
                         
             except Exception as e:
                 self.logger.warning(f"Error processing class link {link}: {e}")
                 continue
+    
+    def _create_inferred_namespace(self, inferred_namespace: str, class_info: ClassInfo, 
+                                 namespace_dict: Dict[str, NamespaceInfo]) -> None:
+        """
+        推定された名前空間を作成してクラスを追加
         
-        # 結果をリストに変換
-        namespaces = list(namespace_dict.values())
+        Args:
+            inferred_namespace: 推定された名前空間名
+            class_info: クラス情報
+            namespace_dict: 名前空間辞書
+        """
+        if inferred_namespace not in namespace_dict:
+            namespace_dict[inferred_namespace] = NamespaceInfo(
+                name=inferred_namespace,
+                url="",  # URLは不明
+                classes=[],
+                description=f"Inferred namespace for {class_info.name}"
+            )
+            self.logger.debug(f"Created inferred namespace: {inferred_namespace}")
         
-        # 統計情報をログ出力
-        total_classes = sum(len(ns.classes) for ns in namespaces)
-        self.logger.info(f"Extracted {len(namespaces)} namespaces with {total_classes} total classes")
-        
-        return namespaces
+        namespace_dict[inferred_namespace].classes.append(class_info)
+        self.logger.debug(f"Added class {class_info.name} to inferred namespace {inferred_namespace}")
     
     def _determine_namespace_for_class(self, class_info: ClassInfo, namespace_names: list) -> Optional[str]:
         """
@@ -231,16 +294,22 @@ class NamespaceScraper:
             # 最後の部分（クラス名）を除いた部分を名前空間として使用
             namespace_parts = parts[:-1]
             
+            # 効率的なマッチングのため事前にlower()変換したセットを使用
+            lower_namespace_names = {name.lower(): name for name in namespace_names}
+            
             # 段階的に名前空間を検索
             for i in range(len(namespace_parts), 0, -1):
                 potential_namespace = '.'.join(namespace_parts[:i])
-                if potential_namespace in namespace_names:
-                    return potential_namespace
+                potential_lower = potential_namespace.lower()
                 
-                # 部分一致も試す
-                for ns_name in namespace_names:
-                    if potential_namespace.lower() in ns_name.lower() or ns_name.lower() in potential_namespace.lower():
-                        return ns_name
+                # 完全一致を優先
+                if potential_lower in lower_namespace_names:
+                    return lower_namespace_names[potential_lower]
+                
+                # 部分一致を試す
+                for lower_name, original_name in lower_namespace_names.items():
+                    if potential_lower in lower_name or lower_name in potential_lower:
+                        return original_name
         
         return None
     
@@ -260,12 +329,11 @@ class NamespaceScraper:
             return '.'.join(parts[:-1])
         else:
             # フルネームに名前空間情報がない場合は、URLから推定
-            if 'yukar' in class_info.url.lower():
-                return 'Yukar'
-            elif 'sharp' in class_info.url.lower():
-                return 'SharpKmy'
-            else:
-                return 'Unknown'
+            url_lower = class_info.url.lower()
+            for pattern, namespace in NAMESPACE_URL_PATTERNS.items():
+                if pattern in url_lower:
+                    return namespace
+            return 'Unknown'
     
     async def _extract_namespace_info(self, link_element) -> Optional[NamespaceInfo]:
         """
