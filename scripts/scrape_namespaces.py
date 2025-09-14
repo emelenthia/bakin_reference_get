@@ -11,6 +11,9 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
+import sys
+
+sys.path.append(str(Path(__file__).parent.parent))
 
 from src.scraper.namespace_scraper import NamespaceScraper
 
