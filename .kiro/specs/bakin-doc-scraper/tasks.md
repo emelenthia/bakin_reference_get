@@ -45,7 +45,12 @@
     - リトライ機構とレート制限を実装（tenacityライブラリ使用）
     - _Requirements: 1.3, 5.1, 5.3_
   
-  - [ ] 3.2 HTML解析ユーティリティの実装
+  - [x] 3.2 HTML解析ユーティリティの実装
+
+
+
+
+
     - BeautifulSoup4を使用したHTML解析ヘルパー関数を作成
     - 相対URLを絶対URLに変換する機能を実装
     - _Requirements: 1.3_
