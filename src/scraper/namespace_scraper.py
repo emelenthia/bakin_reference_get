@@ -15,6 +15,8 @@ import aiohttp
 from ..models.main_models import NamespaceInfo, ClassInfo
 from ..scraper.http_client import HTTPClient
 from ..utils.html_parser import HTMLParser
+from ..utils.local_file_loader import LocalFileLoader
+from ..utils.hierarchy_parser import HierarchyParser
 from .exceptions import NetworkError, ParseError, ScrapingError
 
 
@@ -44,15 +46,17 @@ class NamespaceScraper:
     階層構造を保持したデータ構造を構築します。
     """
     
-    def __init__(self, base_url: str = "https://rpgbakin.com"):
+    def __init__(self, base_url: str = "https://rpgbakin.com", use_local_cache: bool = False):
         """
         NamespaceScraperを初期化
         
         Args:
             base_url: BakinドキュメントのベースURL
+            use_local_cache: ローカルキャッシュを使用するかどうか
         """
         self.base_url = base_url
         self.namespaces_url = urljoin(base_url, "/csreference/doc/ja/namespaces.html")
+        self.use_local_cache = use_local_cache
         self.logger = logging.getLogger(__name__)
         
         # HTTPクライアントとHTMLパーサーを初期化
@@ -62,6 +66,15 @@ class NamespaceScraper:
             user_agent="BakinDocScraper/1.0 (+research purposes)"
         )
         self.html_parser = HTMLParser(base_url=base_url)
+        
+        # ローカルファイルローダーを初期化
+        if use_local_cache:
+            self.local_loader = LocalFileLoader()
+        else:
+            self.local_loader = None
+        
+        # 階層構造パーサーを初期化
+        self.hierarchy_parser = HierarchyParser()
     
     async def scrape_namespaces(self) -> List[NamespaceInfo]:
         """
@@ -73,8 +86,56 @@ class NamespaceScraper:
         Raises:
             Exception: スクレイピング中にエラーが発生した場合
         """
-        self.logger.info(f"Starting namespace scraping from: {self.namespaces_url}")
+        if self.use_local_cache:
+            self.logger.info("Using local cache for namespace scraping")
+            return await self._scrape_from_local_cache()
+        else:
+            self.logger.info(f"Starting namespace scraping from: {self.namespaces_url}")
+            return await self._scrape_from_remote()
+    
+    async def _scrape_from_local_cache(self) -> List[NamespaceInfo]:
+        """
+        ローカルキャッシュから名前空間情報を取得
         
+        Returns:
+            List[NamespaceInfo]: 名前空間情報のリスト
+        """
+        try:
+            # ローカルファイルから読み込み
+            html_content = self.local_loader.load_html_file("namespaces.html")
+            
+            if html_content is None:
+                raise FileNotFoundError("Local namespaces.html file not found")
+            
+            # HTMLを解析
+            soup = self.html_parser.parse_html(html_content)
+            
+            # 階層構造を解析
+            class_path_map = self.hierarchy_parser.parse_hierarchy_from_html(soup)
+            
+            # 名前空間とクラス情報を一括で抽出
+            namespaces = self._extract_namespaces_and_classes_from_directory(soup, class_path_map)
+            
+            self.logger.info(f"Successfully scraped {len(namespaces)} namespaces from local cache")
+            return namespaces
+            
+        except FileNotFoundError as e:
+            self.logger.error(f"Local file not found: {e}")
+            raise ScrapingError(f"Local cache file not found: {e}") from e
+        except (ValueError, AttributeError) as e:
+            self.logger.error(f"HTML parsing error: {e}")
+            raise ParseError(f"Failed to parse HTML content: {e}") from e
+        except Exception as e:
+            self.logger.error(f"Unexpected error scraping from local cache: {e}")
+            raise ScrapingError(f"Local cache scraping failed: {e}") from e
+    
+    async def _scrape_from_remote(self) -> List[NamespaceInfo]:
+        """
+        リモートサーバーから名前空間情報を取得
+        
+        Returns:
+            List[NamespaceInfo]: 名前空間情報のリスト
+        """
         try:
             async with self.http_client:
                 # namespaces.htmlページを取得
@@ -83,8 +144,11 @@ class NamespaceScraper:
                 # HTMLを解析
                 soup = self.html_parser.parse_html(html_content)
                 
+                # 階層構造を解析
+                class_path_map = self.hierarchy_parser.parse_hierarchy_from_html(soup)
+                
                 # 名前空間とクラス情報を一括で抽出
-                namespaces = self._extract_namespaces_and_classes_from_directory(soup)
+                namespaces = self._extract_namespaces_and_classes_from_directory(soup, class_path_map)
                 
                 self.logger.info(f"Successfully scraped {len(namespaces)} namespaces")
                 return namespaces
@@ -150,7 +214,7 @@ class NamespaceScraper:
         
         return unique_namespaces
     
-    def _extract_namespaces_and_classes_from_directory(self, soup) -> List[NamespaceInfo]:
+    def _extract_namespaces_and_classes_from_directory(self, soup, class_path_map: Dict[str, str] = None) -> List[NamespaceInfo]:
         """
         ディレクトリテーブルから名前空間とクラス情報を一括抽出
         
@@ -181,7 +245,7 @@ class NamespaceScraper:
         namespace_dict = self._initialize_namespaces_from_links(namespace_links)
         
         # クラスを名前空間に割り当て
-        self._assign_classes_to_namespaces(class_links, namespace_dict)
+        self._assign_classes_to_namespaces(class_links, namespace_dict, class_path_map)
         
         # 結果をリストに変換
         namespaces = list(namespace_dict.values())
@@ -228,7 +292,7 @@ class NamespaceScraper:
         
         return namespace_dict
     
-    def _assign_classes_to_namespaces(self, class_links: list, namespace_dict: Dict[str, NamespaceInfo]) -> None:
+    def _assign_classes_to_namespaces(self, class_links: list, namespace_dict: Dict[str, NamespaceInfo], class_path_map: Dict[str, str] = None) -> None:
         """
         クラスリンクを対応する名前空間に割り当て
         
@@ -238,7 +302,7 @@ class NamespaceScraper:
         """
         for link in class_links:
             try:
-                class_info = self._extract_class_info_from_link(link)
+                class_info = self._extract_class_info_from_link(link, class_path_map)
                 if class_info:
                     # クラスの名前空間を推定
                     namespace_name = self._determine_namespace_for_class(class_info, namespace_dict.keys())
@@ -440,12 +504,13 @@ class NamespaceScraper:
         
         return classes
     
-    def _extract_class_info_from_link(self, link_element) -> Optional[ClassInfo]:
+    def _extract_class_info_from_link(self, link_element, class_path_map: Dict[str, str] = None) -> Optional[ClassInfo]:
         """
         リンク要素からクラス情報を抽出
         
         Args:
             link_element: BeautifulSoupのリンク要素
+            class_path_map: 階層構造解析から得られたクラスパスマップ
             
         Returns:
             Optional[ClassInfo]: クラス情報（抽出できない場合はNone）
@@ -463,8 +528,27 @@ class NamespaceScraper:
             
             class_url = self.html_parser.to_absolute_url(class_href)
             
-            # フルネームを推定（URLから）
-            full_name = self._extract_full_name_from_url(class_url, class_name)
+            # フルネームを取得（階層構造解析結果を優先）
+            if class_path_map:
+                # クラス名とURLの両方で検索を試行
+                full_name = class_path_map.get(class_name)
+                if not full_name:
+                    # URLでも検索
+                    full_name = class_path_map.get(class_href)
+                if not full_name:
+                    # HierarchyParserのメソッドを使用
+                    full_name = self.hierarchy_parser.get_correct_full_name(class_name, class_href)
+                
+                # それでも見つからない場合はURLから推定
+                if not full_name or full_name == class_name:
+                    full_name = self._extract_full_name_from_url(class_url, class_name)
+                    self.logger.debug(f"Using URL-based full name for {class_name}: {full_name}")
+                else:
+                    self.logger.debug(f"Using hierarchy-based full name for {class_name}: {full_name}")
+            else:
+                # フォールバック: URLから推定
+                full_name = self._extract_full_name_from_url(class_url, class_name)
+                self.logger.debug(f"Using fallback URL-based full name for {class_name}: {full_name}")
             
             # クラスの説明を取得（親要素から）
             description = self._extract_class_description(link_element)
@@ -619,15 +703,16 @@ class NamespaceScraper:
 
 
 # 便利な関数として直接使用できるヘルパー関数
-async def scrape_bakin_namespaces(base_url: str = "https://rpgbakin.com") -> List[NamespaceInfo]:
+async def scrape_bakin_namespaces(base_url: str = "https://rpgbakin.com", use_local_cache: bool = False) -> List[NamespaceInfo]:
     """
     Bakinの名前空間情報をスクレイピング
     
     Args:
         base_url: BakinドキュメントのベースURL
+        use_local_cache: ローカルキャッシュを使用するかどうか
         
     Returns:
         List[NamespaceInfo]: 名前空間情報のリスト
     """
-    scraper = NamespaceScraper(base_url)
+    scraper = NamespaceScraper(base_url, use_local_cache=use_local_cache)
     return await scraper.scrape_namespaces()
