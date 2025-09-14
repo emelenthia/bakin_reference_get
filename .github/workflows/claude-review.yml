@@ -29,3 +29,12 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          track_progress: true
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+            
+            このPRをレビューしてください。コードの品質、セキュリティ、ベストプラクティスの観点からフィードバックを提供し、
+            改善点があれば具体的な提案をしてください。レビュー結果はPRのコメントとして投稿してください。
+            また、レビュー結果は日本語で投稿してください。
+            
