@@ -33,6 +33,14 @@ class TestProgressTracker(unittest.TestCase):
         self.assertFalse(tracker.is_active())
         self.assertEqual(len(tracker.errors), 0)
         self.assertEqual(len(tracker.skipped_items), 0)
+        # Test default progress bar format
+        self.assertIn('{l_bar}{bar}', tracker.progress_bar_format)
+    
+    def test_initialization_with_custom_format(self):
+        """Test ProgressTracker initialization with custom progress bar format."""
+        custom_format = '{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt}'
+        tracker = ProgressTracker(progress_bar_format=custom_format)
+        self.assertEqual(tracker.progress_bar_format, custom_format)
     
     def test_initialization_with_log_file(self):
         """Test ProgressTracker initialization with log file."""
@@ -74,7 +82,7 @@ class TestProgressTracker(unittest.TestCase):
             desc="Test Operation",
             unit="items",
             ncols=100,
-            bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]'
+            bar_format=self.tracker.progress_bar_format
         )
     
     @patch('src.utils.progress_tracker.tqdm')

@@ -7,9 +7,10 @@ and logging capabilities for monitoring scraping operations.
 
 import logging
 import time
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from tqdm import tqdm
 from datetime import datetime
+import uuid
 
 
 class ProgressTracker:
@@ -23,28 +24,35 @@ class ProgressTracker:
     - Error tracking and reporting
     """
     
-    def __init__(self, log_level: int = logging.INFO, log_file: Optional[str] = None):
+    def __init__(self, log_level: int = logging.INFO, log_file: Optional[str] = None, 
+                 progress_bar_format: Optional[str] = None):
         """
         Initialize the progress tracker.
         
         Args:
             log_level: Logging level (default: INFO)
             log_file: Optional log file path for file output
+            progress_bar_format: Custom progress bar format string
         """
         self.current_operation: Optional[str] = None
         self.total_items: int = 0
         self.completed_items: int = 0
         self.start_time: Optional[float] = None
         self.progress_bar: Optional[tqdm] = None
-        self.errors: list = []
-        self.skipped_items: list = []
+        self.errors: List[Dict[str, Any]] = []
+        self.skipped_items: List[Dict[str, Any]] = []
         
-        # Setup logging
-        self.logger = logging.getLogger('bakin_scraper')
+        # Default progress bar format
+        self.progress_bar_format = progress_bar_format or '{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]'
+        
+        # Setup logging with unique logger name to avoid conflicts
+        logger_name = f'bakin_scraper_{uuid.uuid4().hex[:8]}'
+        self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(log_level)
         
-        # Clear existing handlers to avoid duplicates
-        self.logger.handlers.clear()
+        # Only clear handlers for this specific logger instance
+        if self.logger.handlers:
+            self.logger.handlers.clear()
         
         # Console handler
         console_handler = logging.StreamHandler()
@@ -85,7 +93,7 @@ class ProgressTracker:
             desc=operation_name,
             unit="items",
             ncols=100,
-            bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]'
+            bar_format=self.progress_bar_format
         )
         
         self.logger.info(f"Started operation: {operation_name} (Total items: {total_items})")
@@ -284,11 +292,24 @@ class ProgressTracker:
         if self.is_active():
             self.complete_operation()
         
-        # Close file handler if it exists
+        # Close file handler if it exists with proper exception handling
         if hasattr(self, 'file_handler') and self.file_handler:
-            self.file_handler.close()
-            self.logger.removeHandler(self.file_handler)
-            self.file_handler = None
+            try:
+                self.file_handler.close()
+                self.logger.removeHandler(self.file_handler)
+            except Exception as e:
+                # Log the error but don't raise it to avoid disrupting cleanup
+                print(f"Warning: Error closing file handler: {e}")
+            finally:
+                self.file_handler = None
+        
+        # Clean up all handlers for this logger instance
+        try:
+            for handler in self.logger.handlers[:]:
+                handler.close()
+                self.logger.removeHandler(handler)
+        except Exception as e:
+            print(f"Warning: Error cleaning up logger handlers: {e}")
     
     def __enter__(self):
         """Context manager entry."""

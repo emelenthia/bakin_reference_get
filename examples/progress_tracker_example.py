@@ -154,8 +154,10 @@ def demonstrate_logging_levels():
     """
     print("\n=== Logging Levels Example ===\n")
     
-    # Create tracker with DEBUG level and file output using context manager
-    with ProgressTracker(log_level=logging.DEBUG, log_file="debug_example.log") as tracker:
+    # Create tracker with DEBUG level, file output, and custom progress bar format
+    custom_format = '{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]'
+    with ProgressTracker(log_level=logging.DEBUG, log_file="debug_example.log", 
+                        progress_bar_format=custom_format) as tracker:
         tracker.start_operation("Logging Demo", 3)
         
         # Demonstrate different log levels
@@ -175,11 +177,38 @@ def demonstrate_logging_levels():
     print("Check 'debug_example.log' file for detailed logging output")
 
 
+def demonstrate_custom_formatting():
+    """
+    Demonstrate custom progress bar formatting options.
+    """
+    print("\n=== Custom Progress Bar Formatting Example ===\n")
+    
+    formats = [
+        ("Default", None),
+        ("Minimal", '{desc}: {percentage:3.0f}%|{bar}|'),
+        ("Detailed", '{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}] {postfix}'),
+        ("Simple", '{l_bar}{bar}| {n}/{total}')
+    ]
+    
+    for format_name, format_string in formats:
+        print(f"\n--- {format_name} Format ---")
+        
+        with ProgressTracker(progress_bar_format=format_string) as tracker:
+            tracker.start_operation(f"Demo {format_name}", 5)
+            
+            for i in range(5):
+                tracker.update_progress(current_item=f"Item {i+1}")
+                time.sleep(0.2)
+            
+            tracker.complete_operation()
+
+
 if __name__ == "__main__":
     # Run examples
     simulate_scraping_operation()
     demonstrate_multiple_operations()
     demonstrate_logging_levels()
+    demonstrate_custom_formatting()
     
     print("\n=== Examples completed ===")
     print("Log files created:")
