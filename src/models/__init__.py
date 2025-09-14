@@ -1,0 +1,1 @@
+# Data models for Bakin documentation structure
