@@ -11,7 +11,11 @@
   - 基本的な設定ファイル（config.yaml）を作成
   - _Requirements: 1.1, 1.2_
 
-- [ ] 2. データモデルクラスの実装
+- [x] 2. データモデルクラスの実装
+
+
+
+
   - [x] 2.1 基本データクラスの定義
 
 
@@ -23,7 +27,9 @@
     - 型ヒントと@dataclassデコレータを使用
     - _Requirements: 2.2_
   
-  - [ ] 2.2 メインデータモデルの実装
+  - [x] 2.2 メインデータモデルの実装
+
+
     - NamespaceInfo, ClassInfo, MethodInfo, PropertyInfo等のメインクラスを実装
     - JSON シリアライゼーション用のto_dict/from_dictメソッドを追加
     - _Requirements: 2.2_
