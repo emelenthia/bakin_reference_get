@@ -1,5 +1,8 @@
 """
 Data models for Bakin documentation scraper.
+
+This package contains all the data classes used to represent
+documentation elements extracted from the Bakin C# reference.
 """
 
 from .basic_models import (
@@ -12,12 +15,19 @@ from .basic_models import (
     EventInfo
 )
 
+from .main_models import (
+    ClassInfo,
+    NamespaceInfo
+)
+
 __all__ = [
     'ParameterInfo',
-    'ExceptionInfo', 
+    'ExceptionInfo',
     'ConstructorInfo',
     'MethodInfo',
     'PropertyInfo',
     'FieldInfo',
-    'EventInfo'
+    'EventInfo',
+    'ClassInfo',
+    'NamespaceInfo'
 ]
