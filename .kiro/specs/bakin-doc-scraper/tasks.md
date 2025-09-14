@@ -12,7 +12,13 @@
   - _Requirements: 1.1, 1.2_
 
 - [ ] 2. データモデルクラスの実装
-  - [ ] 2.1 基本データクラスの定義
+  - [x] 2.1 基本データクラスの定義
+
+
+
+
+
+
     - ParameterInfo, ExceptionInfo, ConstructorInfo等の基本データクラスを実装
     - 型ヒントと@dataclassデコレータを使用
     - _Requirements: 2.2_
