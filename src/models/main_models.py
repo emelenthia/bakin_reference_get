@@ -18,7 +18,6 @@ class ClassInfo:
     """Represents a C# class with all its members."""
     name: str
     full_name: str
-    url: str
     description: Optional[str] = None
     inheritance: Optional[str] = None
     constructors: List[ConstructorInfo] = field(default_factory=list)
@@ -32,7 +31,6 @@ class ClassInfo:
         return {
             'name': self.name,
             'fullName': self.full_name,
-            'url': self.url,
             'description': self.description,
             'inheritance': self.inheritance,
             'constructors': [constructor.to_dict() for constructor in self.constructors],
@@ -54,7 +52,6 @@ class ClassInfo:
         return cls(
             name=data['name'],
             full_name=data['fullName'],
-            url=data['url'],
             description=data.get('description'),
             inheritance=data.get('inheritance'),
             constructors=constructors,
