@@ -1,93 +1,47 @@
 # Implementation Plan
 
 - [x] 1. プロジェクト構造とコア依存関係のセットアップ
-
-
-
-
-
   - プロジェクトディレクトリ構造を作成
   - requirements.txtファイルを作成（aiohttp, beautifulsoup4, tqdm, tenacity）
   - 基本的な設定ファイル（config.yaml）を作成
   - _Requirements: 1.1, 1.2_
 
 - [x] 2. データモデルクラスの実装
-
-
-
-
   - [x] 2.1 基本データクラスの定義
-
-
-
-
-
-
     - ParameterInfo, ExceptionInfo, ConstructorInfo等の基本データクラスを実装
     - 型ヒントと@dataclassデコレータを使用
     - _Requirements: 2.2_
   
   - [x] 2.2 メインデータモデルの実装
-
-
     - NamespaceInfo, ClassInfo, MethodInfo, PropertyInfo等のメインクラスを実装
     - JSON シリアライゼーション用のto_dict/from_dictメソッドを追加
     - _Requirements: 2.2_
 
 - [ ] 3. HTTPクライアントとHTML解析の基盤実装
   - [x] 3.1 非同期HTTPクライアントの実装
-
-
-
-
-
     - aiohttpを使用した基本HTTPクライアントクラスを作成
     - リトライ機構とレート制限を実装（tenacityライブラリ使用）
     - _Requirements: 1.3, 5.1, 5.3_
   
   - [x] 3.2 HTML解析ユーティリティの実装
-
-
-
-
-
     - BeautifulSoup4を使用したHTML解析ヘルパー関数を作成
     - 相対URLを絶対URLに変換する機能を実装
     - _Requirements: 1.3_
 
 - [x] 4. 進行状況トラッカーの実装
-
-
-
-
-
   - ProgressTrackerクラスを実装
   - tqdmを使用した視覚的プログレスバーを統合
   - ログ出力機能を追加（標準ライブラリlogging使用）
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
 - [x] 5. 名前空間とクラス一覧の取得と初期JSON出力
-
-
-
-
   - [x] 5.1 namespaces.htmlページの解析
-
-
-
-
-
-
-
-
     - namespaces.htmlページから全ての名前空間とクラス情報を一括取得
     - 名前空間名、クラス名、クラスURLを抽出
     - 階層構造を保持したデータ構造を構築
     - _Requirements: 1.1, 1.2, 1.3_
   
   - [x] 5.2 クラス一覧の構造化と簡易JSON出力
-
-
     - 取得したクラス情報を名前空間ごとに整理
     - クラスURLの正規化と検証
     - 重複チェックとデータクリーニング
@@ -97,21 +51,13 @@
 
 - [ ] 6. クラス詳細情報のスクレイピング実装（段階的アプローチ）
   - [x] 6.1 単一クラス詳細取得機能の実装
-
-
-
-
-
-
-
-
     - classes_list.jsonから1つのクラスを選択して詳細情報を取得
     - クラス基本情報（名前、完全名、継承情報、説明）を抽出
     - 取得結果をJSONファイルに保存（single_class_test.json）
     - HTMLの構造に基づいた柔軟なセレクター戦略を実装
     - _Requirements: 1.3_
   
-  - [ ] 6.2 コンストラクタ情報の抽出機能追加
+  - [x] 6.2 コンストラクタ情報の抽出機能追加
     - 6.1で実装したクラスにコンストラクタ情報抽出を追加
     - パラメータの型と名前を正確に解析
     - 結果をsingle_class_test.jsonに追加保存

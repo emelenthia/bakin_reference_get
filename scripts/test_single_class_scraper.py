@@ -40,23 +40,38 @@ async def test_single_class_scraping():
     with open(classes_list_path, 'r', encoding='utf-8') as f:
         classes_data = json.load(f)
     
-    # テスト用のクラスを選択（Yukarネームスペースから選択）
+    # テスト用のクラスを選択（コンストラクタがありそうなクラスを探す）
     test_class = None
     test_namespace = None
     
+    # より一般的なクラス名を探す（コンストラクタがある可能性が高い）
+    target_classes = ['GameObject', 'Component', 'Vector3', 'Color', 'Transform', 'Renderer']
+    
     for namespace in classes_data.get('namespaces', []):
-        if namespace.get('name') == 'Yukar' and namespace.get('classes') and len(namespace['classes']) > 0:
-            # AbnormalActionEffectParamBase クラスを選択（説明がありそう）
+        if namespace.get('classes') and len(namespace['classes']) > 0:
             for cls in namespace['classes']:
-                if cls['name'] == 'AbnormalActionEffectParamBase':
+                if any(target in cls['name'] for target in target_classes):
                     test_class = cls
                     test_namespace = namespace['name']
                     break
-            if not test_class:
-                # 見つからない場合は最初のクラスを使用
-                test_class = namespace['classes'][0]
-                test_namespace = namespace['name']
-            break
+            if test_class:
+                break
+    
+    # 見つからない場合はYukarネームスペースから選択
+    if not test_class:
+        for namespace in classes_data.get('namespaces', []):
+            if namespace.get('name') == 'Yukar' and namespace.get('classes') and len(namespace['classes']) > 0:
+                # AbnormalActionEffectParamBase クラスを選択（説明がありそう）
+                for cls in namespace['classes']:
+                    if cls['name'] == 'AbnormalActionEffectParamBase':
+                        test_class = cls
+                        test_namespace = namespace['name']
+                        break
+                if not test_class:
+                    # 見つからない場合は最初のクラスを使用
+                    test_class = namespace['classes'][0]
+                    test_namespace = namespace['name']
+                break
     
     if not test_class:
         logger.error("No classes found in the classes list")

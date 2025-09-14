@@ -8,11 +8,12 @@ HTMLの構造に基づいた柔軟なセレクター戦略を実装していま�
 import asyncio
 import logging
 import re
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from bs4 import BeautifulSoup, Tag
 import aiohttp
 
 from ..models.main_models import ClassInfo
+from ..models.basic_models import ConstructorInfo, ParameterInfo
 from ..utils.html_parser import HTMLParser
 from .http_client import HTTPClient
 
@@ -68,7 +69,11 @@ class ClassDetailScraper:
             # クラス基本情報を抽出
             class_info = self._extract_basic_class_info(soup, class_name, full_name)
             
-            self.logger.info(f"Successfully scraped details for class: {class_name}")
+            # コンストラクタ情報を抽出
+            constructors = self._extract_constructors(soup, class_name)
+            class_info.constructors = constructors
+            
+            self.logger.info(f"Successfully scraped details for class: {class_name} (found {len(constructors)} constructors)")
             return class_info
             
         except (aiohttp.ClientError, asyncio.TimeoutError) as e:
@@ -383,3 +388,444 @@ class ClassDetailScraper:
                 "pre"    # フォールバック
             ]
         }
+    
+    def _extract_constructors(self, soup: BeautifulSoup, class_name: str) -> List[ConstructorInfo]:
+        """
+        コンストラクタ情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[ConstructorInfo]: 抽出されたコンストラクタ情報のリスト
+        """
+        constructors = []
+        
+        try:
+            # Doxygenスタイルのコンストラクタセクションを探す
+            constructor_sections = self._find_constructor_sections(soup)
+            
+            for section in constructor_sections:
+                constructor = self._parse_constructor_from_section(section, class_name)
+                if constructor:
+                    constructors.append(constructor)
+            
+            # セクションが見つからない場合、テーブルから探す
+            if not constructors:
+                constructors = self._extract_constructors_from_table(soup, class_name)
+            
+            # それでも見つからない場合、コードブロックから探す
+            if not constructors:
+                constructors = self._extract_constructors_from_code(soup, class_name)
+            
+            self.logger.debug(f"Extracted {len(constructors)} constructors for class {class_name}")
+            return constructors
+            
+        except Exception as e:
+            self.logger.error(f"Error extracting constructors for {class_name}: {e}")
+            return []
+    
+    def _find_constructor_sections(self, soup: BeautifulSoup) -> List[Tag]:
+        """
+        コンストラクタセクションを検索
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            
+        Returns:
+            List[Tag]: コンストラクタセクションのリスト
+        """
+        sections = []
+        
+        # 1. Doxygenの一般的なコンストラクタセクション
+        constructor_selectors = [
+            # メンバー関数セクション内のコンストラクタ
+            ".memitem",
+            ".memproto",
+            ".memdoc",
+            # テーブル行
+            "tr",
+            # 定義リスト
+            "dl dt",
+            # その他の可能性
+            "div[class*='constructor']",
+            "div[class*='member']"
+        ]
+        
+        for selector in constructor_selectors:
+            elements = soup.select(selector)
+            for element in elements:
+                # コンストラクタらしいテキストを含むかチェック
+                text = self.html_parser.extract_text_content(element).lower()
+                if any(keyword in text for keyword in [
+                    "constructor", "コンストラクタ", "ctor", "new ", "初期化"
+                ]):
+                    sections.append(element)
+        
+        return sections
+    
+    def _parse_constructor_from_section(self, section: Tag, class_name: str) -> Optional[ConstructorInfo]:
+        """
+        セクションからコンストラクタ情報を解析
+        
+        Args:
+            section: HTMLセクション
+            class_name: クラス名
+            
+        Returns:
+            Optional[ConstructorInfo]: 解析されたコンストラクタ情報
+        """
+        try:
+            # セクション内のテキストを取得
+            section_text = self.html_parser.extract_text_content(section)
+            
+            # 静的フィールドやプロパティを除外
+            if any(exclude_word in section_text.lower() for exclude_word in [
+                'static', 'readonly', 'const', 'guid(', 'new guid'
+            ]):
+                return None
+            
+            # コンストラクタの定義を探す（より厳密なパターン）
+            constructor_patterns = [
+                # アクセス修飾子 + クラス名 + パラメータ
+                rf'(public|private|protected|internal)\s+{re.escape(class_name)}\s*\([^)]*\)',
+                # クラス名 + パラメータ（戻り値の型がないことを確認）
+                rf'(?<![\w.]){re.escape(class_name)}\s*\([^)]*\)(?!\s*[=;])'
+            ]
+            
+            for pattern in constructor_patterns:
+                match = re.search(pattern, section_text, re.IGNORECASE)
+                if match:
+                    constructor_def = match.group(0)
+                    
+                    # 戻り値の型がある場合は除外
+                    if re.search(rf'\b\w+\s+{re.escape(class_name)}\s*\(', constructor_def):
+                        continue
+                    
+                    # パラメータを抽出
+                    parameters = self._parse_parameters_from_definition(constructor_def)
+                    
+                    # 説明を抽出
+                    description = self._extract_description_from_section(section)
+                    
+                    # アクセス修飾子を抽出
+                    access_modifier = self._extract_access_modifier_from_section(section)
+                    
+                    return ConstructorInfo(
+                        name=class_name,
+                        parameters=parameters,
+                        description=description,
+                        access_modifier=access_modifier
+                    )
+            
+            return None
+            
+        except Exception as e:
+            self.logger.debug(f"Error parsing constructor from section: {e}")
+            return None
+    
+    def _extract_constructors_from_table(self, soup: BeautifulSoup, class_name: str) -> List[ConstructorInfo]:
+        """
+        テーブルからコンストラクタ情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[ConstructorInfo]: 抽出されたコンストラクタ情報のリスト
+        """
+        constructors = []
+        
+        tables = soup.select("table")
+        for table in tables:
+            rows = table.select("tr")
+            
+            for row in rows:
+                cells = row.select("td, th")
+                if len(cells) >= 2:
+                    # 最初のセルにコンストラクタ定義があるかチェック
+                    first_cell_text = self.html_parser.extract_text_content(cells[0])
+                    
+                    # 静的フィールドやプロパティを除外
+                    if any(exclude_word in first_cell_text.lower() for exclude_word in [
+                        'static', 'readonly', 'const', 'guid(', 'new guid', '='
+                    ]):
+                        continue
+                    
+                    # コンストラクタらしいパターンをチェック
+                    if (class_name in first_cell_text and "(" in first_cell_text and 
+                        not re.search(rf'\b\w+\s+{re.escape(class_name)}\s*\(', first_cell_text)):
+                        
+                        # パラメータを解析
+                        parameters = self._parse_parameters_from_definition(first_cell_text)
+                        
+                        # 説明を取得（2番目のセル）
+                        description = None
+                        if len(cells) > 1:
+                            description = self.html_parser.extract_text_content(cells[1])
+                            if description and len(description.strip()) < self.MIN_DESCRIPTION_LENGTH:
+                                description = None
+                        
+                        constructor = ConstructorInfo(
+                            name=class_name,
+                            parameters=parameters,
+                            description=description,
+                            access_modifier="public"  # デフォルト
+                        )
+                        constructors.append(constructor)
+        
+        return constructors
+    
+    def _extract_constructors_from_code(self, soup: BeautifulSoup, class_name: str) -> List[ConstructorInfo]:
+        """
+        コードブロックからコンストラクタ情報を抽出
+        
+        Args:
+            soup: BeautifulSoupオブジェクト
+            class_name: クラス名
+            
+        Returns:
+            List[ConstructorInfo]: 抽出されたコンストラクタ情報のリスト
+        """
+        constructors = []
+        seen_signatures = set()  # 重複を避けるため
+        
+        # コードブロックを検索
+        code_elements = soup.select("code, pre, .code, .definition, .memproto")
+        
+        for element in code_elements:
+            text = self.html_parser.extract_text_content(element)
+            
+            # 静的フィールドやプロパティを除外するため、より厳密なパターンを使用
+            # C#のコンストラクタパターンを検索（戻り値の型がないことを確認）
+            constructor_patterns = [
+                # アクセス修飾子 + クラス名 + パラメータ（戻り値の型なし）
+                rf'(public|private|protected|internal)\s+{re.escape(class_name)}\s*\([^)]*\)',
+                # クラス名 + パラメータ（newキーワードの後ではない）
+                rf'(?<!new\s){re.escape(class_name)}\s*\([^)]*\)'
+            ]
+            
+            for pattern in constructor_patterns:
+                matches = re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE)
+                
+                for match in matches:
+                    constructor_def = match.group(0).strip()
+                    
+                    # 静的フィールドやプロパティの定義を除外
+                    if any(exclude_word in constructor_def.lower() for exclude_word in [
+                        'static', 'readonly', 'const', '=', 'new guid', 'guid(', 'new '
+                    ]):
+                        continue
+                    
+                    # 戻り値の型がある場合は除外（メソッドの可能性）
+                    if re.search(rf'\b\w+\s+{re.escape(class_name)}\s*\(', constructor_def):
+                        continue
+                    
+                    # new キーワードが含まれている場合は除外（インスタンス化の可能性）
+                    if 'new ' in constructor_def.lower():
+                        continue
+                    
+                    # パラメータを解析
+                    parameters = self._parse_parameters_from_definition(constructor_def)
+                    
+                    # アクセス修飾子を抽出（元のテキストからも検索）
+                    access_modifier = "public"  # デフォルト
+                    access_match = re.search(r'\b(public|private|protected|internal)\b', constructor_def, re.IGNORECASE)
+                    if access_match:
+                        access_modifier = access_match.group(1).lower()
+                    else:
+                        # 元のテキストからアクセス修飾子を探す
+                        element_text = self.html_parser.extract_text_content(element)
+                        if re.search(rf'\b(private|protected|internal)\s+{re.escape(class_name)}\s*\(', element_text, re.IGNORECASE):
+                            access_match = re.search(rf'\b(private|protected|internal)\s+{re.escape(class_name)}\s*\(', element_text, re.IGNORECASE)
+                            if access_match:
+                                access_modifier = access_match.group(1).lower()
+                    
+                    # 重複チェック用のシグネチャを作成
+                    param_signature = ','.join([f"{p.type} {p.name}" for p in parameters])
+                    signature = f"{access_modifier} {class_name}({param_signature})"
+                    
+                    if signature not in seen_signatures:
+                        seen_signatures.add(signature)
+                        constructor = ConstructorInfo(
+                            name=class_name,
+                            parameters=parameters,
+                            description=None,  # コードブロックからは説明を取得しない
+                            access_modifier=access_modifier
+                        )
+                        constructors.append(constructor)
+        
+        return constructors
+    
+    def _parse_parameters_from_definition(self, definition: str) -> List[ParameterInfo]:
+        """
+        定義文字列からパラメータを解析
+        
+        Args:
+            definition: コンストラクタ定義文字列
+            
+        Returns:
+            List[ParameterInfo]: 解析されたパラメータのリスト
+        """
+        parameters = []
+        
+        try:
+            # 括弧内のパラメータ部分を抽出
+            param_match = re.search(r'\(([^)]*)\)', definition)
+            if not param_match:
+                return parameters
+            
+            param_text = param_match.group(1).strip()
+            if not param_text:
+                return parameters
+            
+            # ジェネリック型を考慮してパラメータを分割
+            param_parts = self._split_parameters_safely(param_text)
+            
+            for param_part in param_parts:
+                if not param_part:
+                    continue
+                
+                # パラメータの型と名前を解析
+                # 例: "int paramName", "string paramName = defaultValue"
+                param_info = self._parse_single_parameter(param_part)
+                if param_info:
+                    parameters.append(param_info)
+        
+        except Exception as e:
+            self.logger.debug(f"Error parsing parameters from definition '{definition}': {e}")
+        
+        return parameters
+    
+    def _split_parameters_safely(self, param_text: str) -> List[str]:
+        """
+        ジェネリック型を考慮してパラメータを安全に分割
+        
+        Args:
+            param_text: パラメータテキスト
+            
+        Returns:
+            List[str]: 分割されたパラメータのリスト
+        """
+        parameters = []
+        current_param = ""
+        bracket_depth = 0
+        
+        for char in param_text:
+            if char == '<':
+                bracket_depth += 1
+                current_param += char
+            elif char == '>':
+                bracket_depth -= 1
+                current_param += char
+            elif char == ',' and bracket_depth == 0:
+                # ジェネリック型の外側のカンマのみで分割
+                if current_param.strip():
+                    parameters.append(current_param.strip())
+                current_param = ""
+            else:
+                current_param += char
+        
+        # 最後のパラメータを追加
+        if current_param.strip():
+            parameters.append(current_param.strip())
+        
+        return parameters
+    
+    def _parse_single_parameter(self, param_text: str) -> Optional[ParameterInfo]:
+        """
+        単一のパラメータテキストを解析
+        
+        Args:
+            param_text: パラメータテキスト
+            
+        Returns:
+            Optional[ParameterInfo]: 解析されたパラメータ情報
+        """
+        try:
+            # デフォルト値を除去
+            param_text = re.sub(r'\s*=\s*[^,]*', '', param_text).strip()
+            
+            # 型と名前を分離
+            # 一般的なパターン: "type name" または "type[] name"
+            parts = param_text.split()
+            
+            if len(parts) >= 2:
+                # 最後の部分が名前、それ以外が型
+                param_name = parts[-1]
+                param_type = ' '.join(parts[:-1])
+                
+                # 特殊文字を除去（ref, out, params等）
+                param_type = re.sub(r'\b(ref|out|params)\s+', '', param_type)
+                
+                return ParameterInfo(
+                    name=param_name,
+                    type=param_type,
+                    description=None
+                )
+            elif len(parts) == 1:
+                # 型のみの場合（名前が省略されている）
+                return ParameterInfo(
+                    name="param",
+                    type=parts[0],
+                    description=None
+                )
+        
+        except Exception as e:
+            self.logger.debug(f"Error parsing single parameter '{param_text}': {e}")
+        
+        return None
+    
+    def _extract_description_from_section(self, section: Tag) -> Optional[str]:
+        """
+        セクションから説明を抽出
+        
+        Args:
+            section: HTMLセクション
+            
+        Returns:
+            Optional[str]: 抽出された説明
+        """
+        # セクション内の段落を探す
+        paragraphs = section.select("p")
+        for p in paragraphs:
+            text = self.html_parser.extract_text_content(p)
+            if text and len(text.strip()) > self.MIN_DESCRIPTION_LENGTH:
+                return self.html_parser.clean_html_text(text)
+        
+        # 段落が見つからない場合、セクション全体のテキストから抽出
+        section_text = self.html_parser.extract_text_content(section)
+        lines = section_text.split('\n')
+        
+        for line in lines:
+            line = line.strip()
+            if (line and len(line) > self.MIN_DESCRIPTION_LENGTH and 
+                not any(skip_word in line.lower() for skip_word in [
+                    "constructor", "コンストラクタ", "public", "private", "protected"
+                ])):
+                return line
+        
+        return None
+    
+    def _extract_access_modifier_from_section(self, section: Tag) -> str:
+        """
+        セクションからアクセス修飾子を抽出
+        
+        Args:
+            section: HTMLセクション
+            
+        Returns:
+            str: アクセス修飾子（デフォルトは"public"）
+        """
+        section_text = self.html_parser.extract_text_content(section).lower()
+        
+        if "private" in section_text:
+            return "private"
+        elif "protected" in section_text:
+            return "protected"
+        elif "internal" in section_text:
+            return "internal"
+        else:
+            return "public"
